@@ -1,13 +1,147 @@
 <?php
 
 class User {
-    private $id;
-    private $mail;
-    private $nom;
-    private $prenom;
-    private $pseudo;
-    private $tel;
-    private $rgpd;
-    private $mot_de_passe;}
+    public $id_user;
+    public $mail;
+    public $nom;
+    public $prenom;
+    public $pseudo;
+    public $tel;
+    public $rgpd;
+    public $mot_de_passe;
+    public $role;
+
+    function chargePOST() {
+        $erreurs = [];
+
+        if (isset($_POST['id_user'])) {
+            $this->id_user = $_POST['id_user'];
+        }
+
+        if (isset($_POST['mail']) && !empty($_POST['mail'])) {
+            $this->mail = $_POST['mail'];
+            $this->mail = trim($this->mail);
+            $this->mail = htmlspecialchars($this->mail);
+            $this->mail = strip_tags($this->mail);
+        } else {
+            $erreurs['mail'] = 'Le mail est obligatoire';
+        }
+
+
+        if (isset($_POST['nom']) && !empty($_POST['nom'])) {
+            $this->nom = $_POST['nom'];
+            $this->nom = htmlspecialchars($this->nom);
+            $this->nom = strip_tags($this->nom);
+        } else {
+            $erreurs['nom'] = 'Le nom est obligatoire';
+        }
+
+        if (isset($_POST['prenom']) && !empty($_POST['prenom'])) {
+            $this->prenom = $_POST['prenom'];
+            $this->prenom = htmlspecialchars($this->prenom);
+            $this->prenom = strip_tags($this->prenom);
+        } else {
+            $erreurs['prenom'] = 'Le prénom est obligatoire';
+        }
+
+        if (isset($_POST['pseudo']) && !empty($_POST['pseudo'])) {
+            $this->pseudo = $_POST['pseudo'];
+            $this->pseudo = htmlspecialchars($this->pseudo);
+            $this->pseudo = strip_tags($this->pseudo);
+        } else {
+            $erreurs['pseudo'] = 'Le pseudo est obligatoire';
+        }
+
+        if (isset($_POST['tel']) && !empty($_POST['tel'])) {
+            $this->tel = $_POST['tel'];
+            $this->tel = trim($this->tel);
+            $this->tel = htmlspecialchars($this->tel);
+            $this->tel = strip_tags($this->tel);
+        } else {
+            $this->tel = null;
+        }
+
+        if (isset($_POST['rgpd'])) {
+            // Checkbox cochée → on met la date actuelle
+            $this->rgpd = date("Y-m-d H:i:s");
+        } else {
+            // Checkbox non cochée → pas de consentement
+            $erreurs['rgpd'] = 'Vous devez accepter les conditions d\'utilisation';
+        }
+
+        if (isset($_POST['mot_de_passe']) && !empty($_POST['mot_de_passe'])) {
+            $this->mot_de_passe = $_POST['mot_de_passe'];
+        } else {
+            $erreurs['mot_de_passe'] = 'Le mot de passe est obligatoire';
+        }
+
+        if (isset($_POST['role']) && !empty($_POST['role'])) {
+            $this->role = $_POST['role'];
+            $this->role = htmlspecialchars($this->role);
+            $this->role = strip_tags($this->role);
+        }
+
+        return $erreurs;
+    }
+
+    function create() {
+		// définit la requête
+		$sql = 'INSERT INTO user (mail, nom, prenom, pseudo, tel, rgpd, mot_de_passe, role)
+				VALUES (:mail, :nom, :prenom, :pseudo, :tel, NOW(), :mot_de_passe, :role)';
+
+		// prépare et exécute la requête
+		$pdo = connexion();
+		$query = $pdo->prepare($sql);
+		$query->bindValue(':mail', $this->mail, PDO::PARAM_STR);
+		$query->bindValue(':nom', $this->nom, PDO::PARAM_STR);
+		$query->bindValue(':prenom', $this->prenom, PDO::PARAM_STR);
+        $query->bindValue(':pseudo', $this->pseudo, PDO::PARAM_STR);
+        if ($this->tel !== null) {
+            $query->bindValue(':tel', $this->tel, PDO::PARAM_INT);
+        } else {
+            $query->bindValue(':tel', null, PDO::PARAM_NULL);
+        }
+        $query->bindValue(':mot_de_passe', $this->mot_de_passe, PDO::PARAM_STR);
+        $query->bindValue(':role', $this->role, PDO::PARAM_STR);
+		$query->execute();
+
+		// récupère la clé de l'auteur créé (auto-incrément)
+		$this->id_user = $pdo->lastInsertId();
+	}
+
+    function checkMail() {
+    	  $sql = 'select * from user where mail = :mail';
+        $pdo = connexion();
+        $query = $pdo->prepare($sql);
+        $query->bindValue(':mail', $this->mail, PDO::PARAM_STR);
+        $query->execute();
+        // récupère la ligne sous forme d'objet et le renvoie
+        // si le résultat contient une ligne alors l'email existe
+        // sinon le résultat est vide et l'email n'existe pas
+        $objet = $query->fetchObject('User');
+        return $objet;
+    }
+
+    function checkUser()
+	{
+		$sql = 'select * from user where mail = :mail and mot_de_passe = :mot_de_passe';
+		$pdo = connexion();
+		$query = $pdo->prepare($sql);
+		$query->bindValue(':mail', $this->mail, PDO::PARAM_STR);
+		$query->bindValue(':mot_de_passe', $this->mot_de_passe, PDO::PARAM_STR);
+		$query->execute();
+
+		// récupère la ligne sous forme d'objet et le renvoie
+		// si le résultat contient une ligne alors l'utilisateur est trouvé
+		// sinon le résultat est vide et l'utilisateur n'existe pas
+		$objet = $query->fetchObject('User');
+		return $objet;
+	}
+}
+
+
+
+
+
 
 

@@ -1,0 +1,98 @@
+{% extends "base.twig" %}
+
+
+{% block main %}
+
+<div class="row min-vh-100">
+    <div class="col container p-5 w-50 d-flex flex-column justify-content-center">
+        <h1 class="text-center pb-5">Vous être un visiteur ?</h1>
+        <p class="text-primary">{{ message_user }}</p>
+        <p class="text-danger">{{ erreur_user }}</p>
+        <section class="container">
+            <form class="w-75 mx-auto" action="index.php?page=authentification&action=inscription_user" method="post">
+            <div class="mb-3">
+                <label for="mail" class="form-label">Adresse Mail :</label>
+                <input type="email" name="mail" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="nom" class="form-label">Nom :</label>
+                <input type="text" name="nom" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="prenom" class="form-label">Prénom :</label>
+                <input type="text" name="prenom" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="pseudo" class="form-label">Pseudo :</label>
+                <input type="text" name="pseudo" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="tel" class="form-label">Numéro de téléphone (facultatif) :</label>
+                <input type="tel" name="tel" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="mdp" class="form-label">Mot de Passe</label>
+                <input type="password" name="mot_de_passe" class="form-control">
+            </div>
+            <input type="hidden" class="form-control" name="role" value="visiteur">
+            <div class="form-check">
+                <input class="form-check-input" name="rgpd" type="checkbox" value="">
+                <label class="form-check-label" for="rgpd">
+                Accepter les conditions d'utilisation
+                </label>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">S'inscrire</button>
+            </form>
+        </section>
+    </div>
+
+    <div class="col container p-5 w-50 bg-secondary d-flex flex-column justify-content-center">
+        <h1 class="text-center text-bg-secondary pb-5">Vous êtes musicien professionnel ?</h1>
+        <p class="text-primary">{{ message_musicien }}</p>
+        <p class="text-danger">{{ erreur_musicien }}</p>
+        <section class="container">
+            <form class="w-75 mx-auto" action="index.php?page=authentification&action=inscription_musicien" method="post">
+            <div class="mb-3">
+                <label for="mail" class="text-bg-secondary form-label">Adresse Mail :</label>
+                <input type="email" name="mail" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="nom" class="text-bg-secondary form-label">Nom :</label>
+                <input type="text" name="nom" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="prenom" class="text-bg-secondary form-label">Prénom :</label>
+                <input type="text" name="prenom" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="pseudo" class="form-label text-bg-secondary">Pseudo :</label>
+                <input type="text" name="pseudo" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="tel" class="text-bg-secondary form-label">Numéro de téléphone (facultatif) :</label>
+                <input type="tel" name="tel" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="mdp" class="text-bg-secondary form-label">Mot de Passe</label>
+                <input type="password" name="mot_de_passe" class="form-control">
+            </div>
+            <input type="hidden" class="form-control" name="role" value="musicien">
+            <div class="form-check">
+                <input class="form-check-input" name="rgpd" type="checkbox" value="">
+                <label class="text-bg-secondary form-check-label" for="rgpd">
+                Accepter les conditions d'utilisation
+                </label>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">S'inscrire</button>
+            </form>
+        </section>
+    </div>
+
+
+</div>
+
+
+{% endblock %}
+
+
+

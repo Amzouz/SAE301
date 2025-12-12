@@ -2,26 +2,26 @@
 
 
 {% block main %}
-    <div class="container my-5 p-5 w-50 border border-primary rounded-5">
-      <h1 class="text-center pb-4">Vous revoilà ! </h1>
-      <section class="container">
-        <form class="w-75 mx-auto" action="index.php?page=authentification&action=connexion" method="post">
-          <div class="mb-3">
+    <div class="container mt-4 mb-3 p-5 w-50 border border-primary rounded-5">
+        <h1 class="text-center pb-4">Vous revoilà ! </h1>
+        <section class="container">
+        <form class="w-75 mx-auto" action="index.php?page=authentification&action=check_connexion" method="post">
+            <div class="mb-3">
             <label for="mail" class="form-label">Adresse Mail :</label>
-            <input type="mail" class="form-control">
-          </div>
-          <div class="mb-3">
+            <input type="mail" name="mail" class="form-control">
+            </div>
+            <div class="mb-3">
             <label for="mdp" class="form-label">Mot de Passe</label>
-            <input type="password" class="form-control">
-          </div>
-          <button type="submit" class="btn btn-primary">Se connecter</button>
+            <input type="password" name="mot_de_passe" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">Se connecter</button>
         </form>
-      </section>
+        </section>
     </div>
 
     <section class="container text-center">
-      <p>Vous n'avez pas encore de compte ?</p>
-      <p><a href="index.php?page=authentification&action=inscription">Cliquez ici pour vous inscrire !</a></p>
+        <p>Vous n'avez pas encore de compte ?</p>
+        <p><a href="index.php?page=choix_inscription">Cliquez ici pour vous inscrire !</a></p>
     </section>
 
 
