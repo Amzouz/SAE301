@@ -1,0 +1,28 @@
+{% extends "base.twig" %}
+
+{% block main %}
+
+    <section class="container d-flex justify-content-end py-4">
+    {% if session.role == 'musicien'%}
+        <a href="index.php?page=cours&action=nouveau" class="p-2 border bg-secondary text-bg-secondary rounded-3 text-decoration-none">Créer un cours</a>
+    {% endif %}
+    </section>
+
+    <section class="container mx-auto">
+    <h1 class="font_gluten text-center mt-3 mb-5">Les cours de musique</h1>
+
+    <div class="d-flex flex-wrap gap-4">
+        {% for cours in cours %}
+            <div class="card border-primary" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ cours.titre_cours }}</h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">{{ cours.prix_cours }} €</h6>
+                    <p class="card-text">{{ cours.desc_cours }}</p>
+                    <a href="index.php?page=cours&action=read&id={{ cours.id_cours }}" class="card-link">En savoir plus</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    </section>
+{% endblock %}

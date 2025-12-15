@@ -1,4 +1,22 @@
 @use "bootstrap" with (
-  $primary: #4F1787,
-  $secondary: #180161,
-)
+    $primary: #56021F,
+    $secondary: #7D1C4A,
+    $font-family-base: 'Red Hat Display',
+);
+
+.carrousel_height {
+    height: 21rem,
+}
+
+.logo_size {
+    width: 3rem;
+}
+
+.font_gluten {
+    font-family: 'Gluten';
+    font-weight: 700;
+}
+
+//FONTS :
+@import url('https://fonts.googleapis.com/css2?family=Gluten:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,600;1,600&display=swap');

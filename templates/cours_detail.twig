@@ -1,0 +1,29 @@
+
+{% extends "base.twig" %}
+
+{% block main %}
+
+    {% if session.role == 'musicien'%}
+    <section class="container">
+        <ul class="d-flex flex-row justify-content-center gap-3 pt-4">
+            <li><a href="index.php?page=cours&action=edit&id={{cours.id_cours}}" class="p-2 border bg-secondary text-bg-secondary rounded-3 text-decoration-none">Modifier</a></li>
+            <li><a href="index.php?page=cours&action=delete&id={{cours.id_cours}}" class="p-2 border bg-secondary text-bg-secondary rounded-3 text-decoration-none">Supprimer</a></li>
+        </ul>
+    </section>
+    {% endif %}
+
+    <section class="container mx-auto my-5 text-center">
+        <p class="text-danger fs-3 text-center py-1 fs-3">{{ erreur_droit }}</p>
+        <h1 class="font_gluten">{{ cours.titre_cours }}</h1>
+        <p>{{ cours.desc_cours }}</p>
+        <p>Prix du cours : {{ cours.prix_cours }} €</p>
+        <p>Type de cours : {{ cours.type_cours }}</p>
+        <p>Date de création du cours : {{ cours.date_creation_cours }}</p>
+        <a href="index.php?page=cours&action=check_compte" class="bg-primary rounded-3 px-3 py-2 text-bg-primary text-decoration-none">S'inscrire</a>
+    </section>
+
+
+
+
+
+{% endblock %}

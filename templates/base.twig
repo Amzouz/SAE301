@@ -13,17 +13,20 @@
 
 <body>
 
-<header class="bg-primary">
+<header class="bg-primary py-2">
     <nav class="navbar navbar-expand-lg container">
     <div class="container-fluid">
-        <a class="navbar-brand text-bg-primary" href="index.php">Harmonishare</a>
+        <a href="index.php">
+        <img src="../public/img/logo.png" class="logo_size" alt="logo - freepik">
+        </a>
+        <a class="navbar-brand text-bg-primary ps-3 font_gluten fs-4" href="index.php">Musicoco</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"   aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-            <a class="nav-link text-bg-primary" aria-current="page" href="#">Cours</a>
+            <a class="nav-link text-bg-primary" aria-current="page" href="index.php?page=cours&action=read">Cours</a>
             </li>
             <li class="nav-item">
             <a class="nav-link text-bg-primary" href="#">Blog</a>
@@ -44,12 +47,12 @@
             <button class="btn btn-outline-light text-bg-primary" type="submit">Search</button>
         </form>
         <ul class="navbar-nav mb-lg-0 mx-2">
-            {% if pseudo is not defined %}
+            {% if session.pseudo is not defined %}
                 <li class="nav-item">
                 <a class="nav-link text-bg-primary" href='index.php?page=authentification&action=check_connexion'>Se connecter</a>
                 </li>
             {% endif %}
-            {% if pseudo is defined %}
+            {% if session.pseudo is defined %}
                 <li class="nav-item">
                 <a class="nav-link text-bg-primary" href='index.php?page=authentification&action=deconnexion'>Se déconnecter</a>
                 </li>
@@ -69,7 +72,8 @@
 
 
 <!-- Scripts -->
+    <script type="module" src="/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-    
+
 </body>
 </html>

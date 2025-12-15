@@ -1,7 +1,5 @@
 <?php
 
-include(ROOT_PATH . '/src/models/user.php');
-
 
 switch ($action) {
     case 'connexion':
@@ -28,8 +26,14 @@ switch ($action) {
 		break;
 
     case 'deconnexion':
-        session_unset(); //vérifier si c'est comme ça 
+        session_unset(); //vérifier si c'est comme ça
 		header('Location: index.php?page=authentification&action=check_connexion');
+        break;
+
+    case 'inscription' :
+        $modele = 'choix_inscription.twig';
+        $data = [];
+        break;
 
     case 'inscription_musicien':
         $user = new User();

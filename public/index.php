@@ -9,6 +9,8 @@ define('ROOT_PATH', __DIR__ . '/..');
 
 include(ROOT_PATH . '/src/database/connexion.php');
 include(ROOT_PATH . '/include/twig.php');
+include(ROOT_PATH . '/src/models/user.php');
+include(ROOT_PATH . '/src/auth/fonctionsAcces.php');
 
 $twig = init_twig();
 
@@ -27,9 +29,8 @@ switch ($page) {
         include(ROOT_PATH . '/src/controller/authentificationController.php');
         break;
 
-    case 'choix_inscription':
-        $modele = 'choix_inscription.twig';
-        $data = [];
+    case 'cours':
+        include(ROOT_PATH . '/src/controller/coursController.php');
         break;
 
     default:
@@ -38,6 +39,6 @@ switch ($page) {
         break;
 }
 
-$data = array_merge($data, $_SESSION);
 
+$twig->addGlobal('session', $_SESSION);
 echo $twig->render($modele, $data);
