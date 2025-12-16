@@ -3,8 +3,29 @@
 
 {% block main %}
     <div class="container mt-4 mb-3 p-5 w-50 border border-primary rounded-5">
-        <p class="fs-2 text-center text-danger">{{ erreur_cours }}</p>
-        <h1 class="text-center pb-4 font_gluten">Vous revoilà ! </h1>
+        {% if erreur_cours %}
+            <p class="fs-2 text-center text-danger">{{ erreur_cours }}</p>
+        {% endif %}
+
+        {% if erreur_instruments %}
+            <p class="fs-2 text-center text-danger">{{ erreur_instruments }}</p>
+        {% endif %}
+
+        {% if erreur_compte %}
+            <p class="alert alert-danger">{{ erreur_compte }}</p>
+        {% endif %}
+
+        {% if erreurs %}
+            <div class="alert alert-danger">
+                <ul class="mb-0">
+                    {% for erreur in erreurs %}
+                    <li>{{ erreur }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        <h1 class="text-center pb-4 font_gluten pt-3">Vous revoilà ! </h1>
         <section class="container">
         <form class="w-75 mx-auto" action="index.php?page=authentification&action=check_connexion" method="post">
             <div class="mb-3">

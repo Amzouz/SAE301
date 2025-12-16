@@ -33,6 +33,10 @@ switch ($page) {
         include(ROOT_PATH . '/src/controller/coursController.php');
         break;
 
+    case 'instruments':
+        include(ROOT_PATH . '/src/controller/instrumentsController.php');
+        break;
+
     default:
         $modele = 'accueil.twig';
         $data = [];

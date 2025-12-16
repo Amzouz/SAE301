@@ -4,16 +4,14 @@ include(ROOT_PATH . '/src/models/cours.php');
 
 switch ($action) {
 
-
-
     case 'read' :
         if ($id > 0) {
-            $modele = 'cours_detail.twig';
+            $modele = 'cours/cours_detail.twig';
             $data = [
                 'cours' => Cours::readOne($id),
             ];
         } else {
-            $modele = 'cours.twig';
+            $modele = 'cours/cours.twig';
             $data = [
                 'cours' => Cours::readAll()
             ];
@@ -22,38 +20,47 @@ switch ($action) {
 
     case 'check_compte' :
         if (!$_SESSION) {
-            $modele = 'connexion.twig';
-            $data = ['erreur_cours' => 'Vous devez être connectés pour vous inscrire à un cours'];
+            $modele = 'authentification/connexion.twig';
+            $data = ['erreur_cours' => 'Vous devez être connecté pour vous inscrire à un cours'];
         } else {
-            $modele = 'cours_inscription.twig';
+            $modele = 'authentification/cours_inscription.twig';
             $data = [];
         }
         break;
 
     case 'nouveau' :
-        $modele = 'cours_form.twig';
+        $modele = 'cours/cours_form.twig';
         $data = [];
         break;
 
     case 'create' :
         $cours = new Cours();
         $id_user = $_SESSION['id_user'];
-        $cours->chargePOST($id_user);
-        $cours->create();
-        header('Location: index.php?page=cours&action=read&id='.$cours->id_cours);
+        $erreurs = $cours->chargePOST($id_user);
+        if (empty($erreurs)) {
+            $cours->create();
+            header('Location: index.php?page=cours&action=read&id='.$cours->id_cours);
+        } else {
+            $modele = 'cours/cours_form.twig';
+            $data = [
+                'cours' => $cours,
+                'erreurs' => $erreurs
+            ];
+        }
         break;
+
 
     case 'edit' :
         requireRole('musicien');
         $cours = Cours::readOne($id);
         if (!checkOwner($cours->id_user)) {
-            $modele = 'cours_detail.twig';
+            $modele = 'cours/cours_detail.twig';
             $data = [
                 'erreur_droit' => 'Accès refusé, vous n\'avez pas les droits pour modifier ce cours.',
                 'cours' => Cours::readOne($id)
             ];
         } else {
-            $modele = 'cours_form.twig';
+            $modele = 'cours/cours_form.twig';
             $data = [
                 'cours' => Cours::ReadOne($id)
             ];
@@ -61,21 +68,20 @@ switch ($action) {
         break;
 
     case 'update' :
-        requireRole('musicien');
-        $cours = Cours::readOne($id);
-        if (!checkOwner($cours->id_user)) {
-            $modele = 'cours_detail.twig';
-            $data = [
-                'erreur_droit' => 'Accès refusé, vous n\'avez pas les droits pour modifier ce cours.',
-                'cours' => Cours::readOne($id)
-            ];
-        } else {
         $cours = new Cours();
         $id_user = $_SESSION['id_user'];
-        $cours->chargePOST($id_user);
-        $cours->update($id);
-        header('Location: index.php?page=cours&action=read&id='.$cours->id_cours);
-        exit();
+        $erreurs = $cours->chargePOST($id_user);
+
+        if (empty($erreurs)) {
+            $cours->update($id);
+            header('Location: index.php?page=cours&action=read&id='.$cours->id_cours);
+            exit;
+        } else {
+            $modele = 'cours/cours_form.twig';
+            $data = [
+                'cours' => $cours,
+                'erreurs' => $erreurs
+            ];
         }
         break;
 
@@ -83,7 +89,7 @@ switch ($action) {
         requireRole('musicien');
         $cours = Cours::readOne($id);
         if (!checkOwner($cours->id_user)) {
-            $modele = 'cours_detail.twig';
+            $modele = 'cours/cours_detail.twig';
             $data = [
                 'erreur_droit' => 'Accès refusé, vous n\'avez pas les droits pour supprimer ce cours.',
                 'cours' => Cours::readOne($id)
@@ -95,7 +101,7 @@ switch ($action) {
         break;
 
     default:
-        $modele = 'cours.twig';
+        $modele = 'cours/cours.twig';
         $data = [
             'cours' => Cours::readAll()
         ];

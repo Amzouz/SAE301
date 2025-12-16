@@ -1,0 +1,28 @@
+{% extends "base.twig" %}
+
+{% block main %}
+
+    <section class="container">
+        {% if session.id_user == instruments.id_user %}
+            <ul class="d-flex flex-row justify-content-center gap-3 pt-4">
+                <li><a href="index.php?page=instruments&action=edit&id={{instruments.id_instru}}" class="p-2 border bg-secondary text-bg-secondary rounded-3 text-decoration-none">Modifier</a></li>
+                <li><a href="index.php?page=instruments&action=delete&id={{instruments.id_instru}}" class="p-2 border bg-secondary text-bg-secondary rounded-3 text-decoration-none">Supprimer</a></li>
+            </ul>
+        {% endif %}
+    </section>
+
+    <section class="container mx-auto my-5 text-center">
+        <p class="text-danger fs-3 text-center py-1 fs-3">{{ erreur_droit_instru }}</p>
+        <h1 class="font_gluten">{{ instruments.nom_instru }}</h1>
+        <p>{{ instruments.desc_instru }}</p>
+        <p>Prix de l'instrument : {{ instruments.prix_instru }} €</p>
+        <p>Type de l'instrument : {{ instruments.type_instru }}</p>
+        <p>Date de création de l'annonce : {{ instruments.date_post_instru }}</p>
+        <a href="index.php?page=instruments&action=check_compte" class="bg-primary rounded-3 px-3 py-2 text-bg-primary text-decoration-none">Acheter cet instrument</a>
+    </section>
+
+
+
+
+
+{% endblock %}

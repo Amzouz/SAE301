@@ -1,0 +1,65 @@
+{% extends "base.twig" %}
+
+{% block main %}
+
+
+<section class="container">
+    {% if erreurs %}
+        <div class="text-danger text-center">
+            <ul class="mb-0">
+                {% for erreur in erreurs %}
+                <li>{{ erreur }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <form class="w-75 mx-auto" action="index.php?page=instruments&action={% if instruments %}update{% else %}create{% endif %}" method="post">
+
+        {% if instruments.id_instru is defined %}
+        <input type="hidden" name="id_instru" value={{ instruments.id_instru }}>
+        {% endif %}
+
+
+    <div class="mb-3">
+        <label for="nom_instru" class="form-label">Nom de l'instrument :</label>
+        <input type="text" name="nom_instru" value="{{ instruments.nom_instru }}" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label for="reference_instru" class="form-label">Référence de l'instrument :</label>
+        <input type="text" name="reference_instru" value="{{ instruments.reference_instru }}" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label for="desc_instru" class="form-label">Description :</label>
+        <input type="text-area" name="desc_instru" value="{{ instruments.desc_instru }}" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label for="prix_instru" class="form-label">Prix :</label>
+        <input type="number" name="prix_instru" value="{{ instruments.prix_instru }}" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label for="type_instru" class="form-label">Type  :</label>
+        <select class="form-select" name="type_instru" aria-label="Default select example">
+            <option value="Instrument à cordes" {% if instruments.type_instru == 'Instrument à cordes' %} selected {% endif %}>Instrument à cordes</option>
+            <option value="Instrument à vent" {% if instruments.type_instru == 'Instrument à vent '%} selected {% endif %}>Instrument à vent</option>
+            <option value="Clavier" {% if instruments.type_instru == 'Clavier '%} selected {% endif %}>Clavier</option>
+            <option value="Percussion" {% if instruments.type_instru == 'Percussion '%} selected {% endif %}>Percussion</option>
+            <option value="Electronique" {% if instruments.type_instru == 'Electronique '%} selected {% endif %}>Electronique</option>
+            <option value="Autre" {% if instruments.type_instru == 'Autre '%} selected {% endif %}>Autre</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="etat_instru" class="form-label">Etat :</label>
+        <select class="form-select" name="etat_instru" aria-label="Default select example">
+            <option value="Neuf" {% if instruments.etat_instru == 'Neuf' %} selected {% endif %}>Neuf</option>
+            <option value="Très bon état" {% if instruments.etat_instru == 'Très bon état '%} selected {% endif %}>Très bon état</option>
+            <option value="Bon état" {% if instruments.etat_instru == 'Bon état '%} selected {% endif %}>Bon état</option>
+            <option value="Usagé" {% if instruments.etat_instru == 'Usagé '%} selected {% endif %}>Usagé</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">{% if instruments.id_instru is defined %}Modifier{% else %}Créer{% endif %}</button>
+    </form>
+</section>
+
+
+{% endblock %}

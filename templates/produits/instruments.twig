@@ -1,0 +1,31 @@
+{% extends "base.twig" %}
+
+{% block main %}
+
+
+<section class="container d-flex justify-content-end py-4">
+    {% if session.role in ['musicien', 'visiteur'] %}
+    <a href="index.php?page=instruments&action=nouveau" class="p-2 border bg-secondary text-bg-secondary rounded-3 text-decoration-none">Créer une annonce d'instrument</a>
+    {% endif %}
+</section>
+
+    <section class="container mx-auto">
+    <h1 class="font_gluten text-center mt-3 mb-5">Les instruments en vente</h1>
+
+    <div class="d-flex flex-wrap gap-4">
+        {% for instrument in instruments %}
+            <div class="card border-primary" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ instrument.nom_instru }}</h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">{{ instrument.prix_instru }} €</h6>
+                    <p class="card-text">{{ instrument.desc_instru }}</p>
+                    <a href="index.php?page=instruments&action=read&id={{ instrument.id_instru }}" class="card-link">En savoir plus</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    </section>
+
+
+{% endblock %}

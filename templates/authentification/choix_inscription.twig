@@ -5,10 +5,21 @@
 
 <div class="row min-vh-100">
     <div class="col container p-5 w-50 d-flex flex-column justify-content-center">
-        <h1 class="text-center pb-5">Vous être un visiteur ?</h1>
+        <h1 class="text-center pb-2">Vous être un visiteur ?</h1>
         <p class="text-primary">{{ message_user }}</p>
-        <p class="text-danger">{{ erreur_user }}</p>
-        <section class="container">
+        <p class="text-danger">{{ erreur_user_mail }}</p>
+
+        {% if erreurs_user %}
+            <div class="alert alert-danger">
+                <ul class="mb-0">
+                    {% for erreur in erreurs_user %}
+                    <li>{{ erreur }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        <section class="container pt-3">
             <form class="w-75 mx-auto" action="index.php?page=authentification&action=inscription_user" method="post">
             <div class="mb-3">
                 <label for="mail" class="form-label">Adresse Mail :</label>
@@ -47,10 +58,21 @@
     </div>
 
     <div class="col container p-5 w-50 bg-secondary d-flex flex-column justify-content-center">
-        <h1 class="text-center text-bg-secondary pb-5">Vous êtes musicien professionnel ?</h1>
+        <h1 class="text-center text-bg-secondary pb-2">Vous êtes musicien professionnel ?</h1>
         <p class="text-bg-secondary">{{ message_musicien }}</p>
-        <p class="text-danger">{{ erreur_musicien }}</p>
-        <section class="container">
+        <p class="text-danger">{{ erreur_musicien_mail }}</p>
+
+        {% if erreurs_musicien %}
+            <div class="alert alert-danger">
+                <ul class="mb-0">
+                    {% for erreur in erreurs_musicien %}
+                    <li>{{ erreur }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        <section class="container pt-3">
             <form class="w-75 mx-auto" action="index.php?page=authentification&action=inscription_musicien" method="post">
             <div class="mb-3">
                 <label for="mail" class="text-bg-secondary form-label">Adresse Mail :</label>

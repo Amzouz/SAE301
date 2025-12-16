@@ -4,11 +4,23 @@
 
 
 <section class="container">
+
+    {% if erreurs %}
+        <div class="text-danger text-center">
+            <ul class="mb-0">
+                {% for erreur in erreurs %}
+                <li>{{ erreur }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
     <form class="w-75 mx-auto" action="index.php?page=cours&action={% if cours %}update{% else %}create{% endif %}" method="post">
 
         {% if cours.id_cours is defined %}
         <input type="hidden" name="id_cours" value={{ cours.id_cours }}>
         {% endif %}
+
 
     <div class="mb-3">
         <label for="titre_cours" class="form-label">Titre du cours :</label>
