@@ -3,8 +3,16 @@
 {% block main %}
 
 {% if session is defined %}
-<h2>Félicitation vous êtes inscrits</h2>
+<div class="container py-5 d-flex justify-content-center">
+        <div class="w-50 shadow-lg text-center rounded-4">
+            <div class="card-body p-5">
+                <h1 class="font_gluten text-success fs-1 mb-4">Félicitations vous êtes inscrit !</h1>
+                <p class="fs-4 mb-5">Un récapitulatif vous sera envoyé par mail d'ici peu</p>
+                <a href="index.php" class="btn btn-secondary">Retour à la page d'accueil</a>
+            </div>
+        </div>
+    </div>
+</div>
 {% endif %}
-
 
 {% endblock %}

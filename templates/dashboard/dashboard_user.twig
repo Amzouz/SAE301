@@ -1,0 +1,39 @@
+{% extends "dashboard/base_dashboard.twig" %}
+
+{% block main %}
+
+<section class="container mb-5">
+    {% for user in user %}
+        <ul class="list-group list-group-horizontal mx-auto w-75">
+            <li class="list-group-item">
+                <span class="badge text-bg-primary rounded-pill">{{ user.id_user }}</span>
+            </li>
+            <li class="list-group-item">
+                {{ user.mail }}
+            </li>
+            <li class="list-group-item">
+                {{ user.nom }}
+            </li>
+            <li class="list-group-item">
+                {{ user.prenom }}
+            </li>
+            <li class="list-group-item">
+                {{ user.pseudo }}
+            </li>
+            <li class="list-group-item">
+                {{ user.tel }}
+            </li>
+            <li class="list-group-item">
+                {{ user.rgpd }}
+            </li>
+            <li class="list-group-item">
+                {{ user.role }}
+            </li>
+            <li class="list-group-item d-flex flex-rox gap-3">
+                <a href="index.php?page=dashboard&action=role_edit&id={{user.id_user}}" class="text-decoration-none"><i class="bi bi-person-check"></i>  Modifier le rôle</a>
+            </li>
+        </ul>
+    {% endfor %}
+</section>
+
+{% endblock %}

@@ -2,7 +2,7 @@
 
 // Fonction qui vérifie les roles utilisateur pour donner les accès
 function requireRole($role) {
-    if (empty($_SESSION['role']) || ($_SESSION['role'] !== $role && $_SESSION['role'] !== 'Admin')) {
+    if (empty($_SESSION['role']) || ($_SESSION['role'] !== $role && $_SESSION['role'] !== 'administrateur')) {
     header('Location: index.php');
     exit();
     }

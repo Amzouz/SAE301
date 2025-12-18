@@ -6,8 +6,10 @@
 <div class="row min-vh-100">
     <div class="col container p-5 w-50 d-flex flex-column justify-content-center">
         <h1 class="text-center pb-2">Vous être un visiteur ?</h1>
-        <p class="text-primary">{{ message_user }}</p>
-        <p class="text-danger">{{ erreur_user_mail }}</p>
+
+        {% if erreur_user_mail %}
+            <p class="alert alert-danger text-center">{{ erreur_user_mail }}</p>
+        {% endif %}
 
         {% if erreurs_user %}
             <div class="alert alert-danger">
@@ -59,8 +61,10 @@
 
     <div class="col container p-5 w-50 bg-secondary d-flex flex-column justify-content-center">
         <h1 class="text-center text-bg-secondary pb-2">Vous êtes musicien professionnel ?</h1>
-        <p class="text-bg-secondary">{{ message_musicien }}</p>
-        <p class="text-danger">{{ erreur_musicien_mail }}</p>
+
+        {% if erreur_musicien_mail %}
+            <p class="alert alert-danger text-center">{{ erreur_musicien_mail }}</p>
+        {% endif %}
 
         {% if erreurs_musicien %}
             <div class="alert alert-danger">

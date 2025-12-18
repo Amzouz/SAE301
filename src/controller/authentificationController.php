@@ -4,8 +4,8 @@
 switch ($action) {
     case 'connexion':
 		$user = new User();
-		$modele = 'accueil.twig';
-        $data = ['message' => 'Vous être connecté'];
+		$modele = 'authentification/connexion.twig';
+        $data = [];
 		break;
 
     case 'check_connexion':
@@ -25,9 +25,14 @@ switch ($action) {
             if ($readUser) {
                 // utilisateur trouvé, on le stocke en session
                 $_SESSION['pseudo'] = $readUser->pseudo;
+                $_SESSION['mail'] = $readUser->mail;
+                $_SESSION['nom'] = $readUser->nom;
+                $_SESSION['prenom'] = $readUser->prenom;
+                $_SESSION['tel'] = $readUser->tel;
+                $_SESSION['rgpd'] = $readUser->rgpd;
                 $_SESSION['role'] = $readUser->role;
                 $_SESSION['id_user'] = $readUser->id_user;
-                header('Location: index.php?page=authentification&action=connexion');
+                header('Location: index.php');
                 exit;
             } else {
                 // utilisateur non trouvé, retour au formulaire de login
@@ -48,7 +53,7 @@ switch ($action) {
 
     case 'deconnexion':
         session_unset(); //vérifier si c'est comme ça
-		header('Location: index.php?page=authentification&action=check_connexion');
+		header('Location: index.php?page=authentification&action=connexion');
         break;
 
     case 'inscription' :
@@ -67,20 +72,18 @@ switch ($action) {
                 $modele = 'authentification/choix_inscription.twig';
                 $data = [
                     'erreur_musicien_mail' => 'Ce mail est déja utilisé',
-                    'user_musicien' => $user
                 ];
             } else {
                 $user->create();
-                $modele = 'authentification/choix_inscription.twig';
+                $modele = 'authentification/connexion.twig';
                 $data = [
-                    'message_musicien' => 'Le compte a bien été créé',
+                    'message_musicien' => 'Le compte a bien été créé, veuillez vous connecter',
                 ];
             }
         } else {
             $modele = 'authentification/choix_inscription.twig';
             $data = [
                 'erreurs_musicien' => $erreurs,
-                'user_musicien' => $user
             ];
         }
         break;
@@ -96,22 +99,18 @@ switch ($action) {
                 $modele = 'authentification/choix_inscription.twig';
                 $data = [
                     'erreur_user' => 'Ce mail est déja utilisé',
-                    'message_user' => '',
-                    'user_user' => $user
                 ];
             } else {
                 $user->create();
-                $modele = 'authentification/choix_inscription.twig';
+                $modele = 'authentification/connexion.twig';
                 $data = [
-                    'message_user' => 'Le compte a bien été créé',
-                    'erreur_user' => ''
+                    'message_user' => 'Le compte a bien été créé, veuillez vous connecter',
                 ];
             }
         } else {
             $modele = 'authentification/choix_inscription.twig';
             $data = [
                 'erreurs_user' => $erreurs,
-                'user_user' => $user
             ];
         }
         break;

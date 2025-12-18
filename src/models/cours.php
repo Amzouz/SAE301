@@ -20,7 +20,6 @@ class Cours {
 
         if (isset($_POST['titre_cours']) && !empty($_POST['titre_cours'])) {
             $this->titre_cours = $_POST['titre_cours'];
-            $this->titre_cours = htmlspecialchars($this->titre_cours);
             $this->titre_cours = strip_tags($this->titre_cours);
         } else {
             $erreurs['titre_cours'] = 'Le titre du cours est obligatoire';
@@ -28,7 +27,6 @@ class Cours {
 
         if (isset($_POST['desc_cours']) && !empty($_POST['desc_cours'])) {
             $this->desc_cours = $_POST['desc_cours'];
-            $this->desc_cours = htmlspecialchars($this->desc_cours);
             $this->desc_cours = strip_tags($this->desc_cours);
         } else {
             $erreurs['desc_cours'] = 'La description du cours est obligatoire';
@@ -70,6 +68,7 @@ class Cours {
 	}
 
 
+
     static function readOne($id) {
         $sql= 'select * from cours where id_cours = :valeur';
 
@@ -84,6 +83,7 @@ class Cours {
     }
 
 
+
     function update($id) {
         $sql = 'UPDATE cours SET titre_cours = :titre_cours, desc_cours = :desc_cours, prix_cours = :prix_cours, type_cours = :type_cours WHERE id_cours = :id';
 
@@ -96,8 +96,8 @@ class Cours {
         $query->bindValue(':type_cours', $this->type_cours, PDO::PARAM_STR);
         $query->execute();
         return [];
-
     }
+
 
 
     function create() {
@@ -122,6 +122,25 @@ class Cours {
         $query = $pdo->prepare($sql);
         $query->bindValue(':id_cours', $id, PDO::PARAM_INT);
         $query->execute();
+    }
+
+    static function nombre_cours() {
+        $sql = 'SELECT COUNT(*) FROM cours';
+        $pdo = connexion();
+        $query = $pdo->prepare($sql);
+        $query->execute();
+        $nombre_cours = $query->fetchColumn();
+        return $nombre_cours;
+    }
+
+    static function annonces_user($id) {
+        $sql = 'SELECT * FROM cours WHERE id_user = :id';
+        $pdo = connexion();
+        $query = $pdo->prepare($sql);
+        $query->bindValue(':id', $id, PDO::PARAM_INT);
+        $query->execute();
+        $tableau = $query->fetchAll(PDO::FETCH_CLASS, 'Cours');
+        return $tableau;
     }
 
 }

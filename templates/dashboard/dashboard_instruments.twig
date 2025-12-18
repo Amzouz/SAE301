@@ -1,0 +1,43 @@
+{% extends "dashboard/base_dashboard.twig" %}
+
+{% block main %}
+
+<secion class=" container">
+    {% for instrument in instruments %}
+        <ul class="list-group list-group-horizontal mx-auto w-75">
+            <li class="list-group-item">
+                <span class="badge text-bg-primary rounded-pill">{{ instrument.id_instru }}</span>
+            </li>
+            <li class="list-group-item">
+                {{ instrument.nom_instru }}
+            </li>
+            <li class="list-group-item">
+                {{ instrument.reference_instru }}
+            </li>
+            <li class="list-group-item">
+                {{ instrument.desc_instru }}
+            </li>
+            <li class="list-group-item">
+                {{ instrument.prix_instru }}
+            </li>
+            <li class="list-group-item">
+                {{ instrument.type_instru }}
+            </li>
+            <li class="list-group-item">
+                {{ instrument.etat_instru }}
+            </li>
+            <li class="list-group-item">
+                {{ instrument.date_post_instru }}
+            </li>
+            <li class="list-group-item">
+                {{ instrument.id_user }}
+            </li>
+            <li class="list-group-item d-flex flex-rox gap-3">
+                <a href="index.php?page=instruments&action=edit&id={{instrument.id_instru}}"><i class="bi bi-pencil-fill"></i></a>
+                <a href="index.php?page=instruments&action=delete&id={{instrument.id_instru}}"><i class="bi bi-trash3"></i></a>
+            </li>
+        </ul>
+    {% endfor %}
+</secion>
+
+{% endblock %}

@@ -30,7 +30,6 @@ class User {
 
         if (isset($_POST['nom']) && !empty($_POST['nom'])) {
             $this->nom = $_POST['nom'];
-            $this->nom = htmlspecialchars($this->nom);
             $this->nom = strip_tags($this->nom);
         } else {
             $erreurs['nom'] = 'Le nom est obligatoire';
@@ -38,7 +37,6 @@ class User {
 
         if (isset($_POST['prenom']) && !empty($_POST['prenom'])) {
             $this->prenom = $_POST['prenom'];
-            $this->prenom = htmlspecialchars($this->prenom);
             $this->prenom = strip_tags($this->prenom);
         } else {
             $erreurs['prenom'] = 'Le prénom est obligatoire';
@@ -46,7 +44,6 @@ class User {
 
         if (isset($_POST['pseudo']) && !empty($_POST['pseudo'])) {
             $this->pseudo = $_POST['pseudo'];
-            $this->pseudo = htmlspecialchars($this->pseudo);
             $this->pseudo = strip_tags($this->pseudo);
         } else {
             $erreurs['pseudo'] = 'Le pseudo est obligatoire';
@@ -83,6 +80,33 @@ class User {
 
         return $erreurs;
     }
+
+
+    static function readAll() {
+		$sql = 'select * from user';
+
+		$pdo = connexion();
+		$query = $pdo->prepare($sql);
+		$query->execute();
+
+		$tableau = $query->fetchAll(PDO::FETCH_CLASS, 'User');
+		return $tableau;
+	}
+
+
+    static function readOne($id) {
+        $sql= 'select * from user where id_user = :valeur';
+
+        $pdo = connexion();
+        $query = $pdo->prepare($sql);
+        $query->bindValue(':valeur', $id, PDO::PARAM_INT);
+        $query->execute();
+
+        $objet = $query->fetchObject('User');
+
+        return $objet;
+    }
+
 
     function create() {
 		// définit la requête
@@ -137,6 +161,41 @@ class User {
 		$objet = $query->fetchObject('User');
 		return $objet;
 	}
+
+    function update_role($id) {
+        $sql = 'UPDATE user SET role = :role WHERE id_user = :id';
+        $pdo = connexion();
+        $query = $pdo->prepare($sql);
+        $query->bindValue(':id', $this->id_user, PDO::PARAM_INT);
+        $query->bindValue(':role', $this->role, PDO::PARAM_STR);
+        $query->execute();
+        return [];
+    }
+
+    function update_profil($id) {
+        $sql = 'UPDATE user SET mail = :mail, nom = :nom, prenom = :prenom, pseudo = :pseudo, tel = :tel, mot_de_passe = :mot_de_passe WHERE id_user = :id';
+
+        $pdo = connexion();
+        $query = $pdo->prepare($sql);
+        $query->bindValue(':id', $id, PDO::PARAM_INT);
+        $query->bindValue(':mail', $this->mail, PDO::PARAM_STR);
+        $query->bindValue(':nom', $this->nom, PDO::PARAM_STR);
+        $query->bindValue(':prenom', $this->prenom, PDO::PARAM_STR);
+        $query->bindValue(':pseudo', $this->pseudo, PDO::PARAM_STR);
+        $query->bindValue(':tel', $this->tel, PDO::PARAM_STR);
+        $query->bindValue(':mot_de_passe', $this->mot_de_passe, PDO::PARAM_STR);
+        $query->execute();
+        return [];
+    }
+
+    static function nombre_user() {
+        $sql = 'SELECT COUNT(*) FROM user';
+        $pdo = connexion();
+        $query = $pdo->prepare($sql);
+        $query->execute();
+        $nombre_user = $query->fetchColumn();
+        return $nombre_user;
+    }
 }
 
 

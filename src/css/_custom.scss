@@ -1,15 +1,20 @@
 @use "bootstrap" with (
     $primary: #56021F,
     $secondary: #7D1C4A,
+    $success: #D17D98,
     $font-family-base: 'Red Hat Display',
 );
 
 .carrousel_height {
-    height: 21rem,
+    height: 23rem,
 }
 
 .logo_size {
-    width: 3rem;
+    width: 3.5rem;
+}
+
+.size_profil_icon {
+    font-size: 1.2rem;
 }
 
 .font_gluten {

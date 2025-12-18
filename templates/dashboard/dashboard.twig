@@ -1,0 +1,46 @@
+{% extends "dashboard/base_dashboard.twig" %}
+
+{% block main %}
+
+<section class="container mx-auto my-5">
+    <div class="row g-4">
+        <div class="col-6">
+            <div class="card text-center border-primary border-2">
+                <div class="card-body">
+                    <i class="bi bi-music-note-list fs-3 text-secondary"></i>
+                    <h5 class="card-title">Nombre de cours</h5>
+                    <p class="card-text text-bg-primary rounded-pill w-25 mx-auto">{{ nombre_cours }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card text-center border-primary border-2">
+                <div class="card-body">
+                    <i class="bi bi-music-note-beamed fs-3 text-secondary"></i>
+                    <h5 class="card-title">Nombre d'annonces d'instruments</h5>
+                    <p class="card-text text-bg-primary rounded-pill w-25 mx-auto">{{ nombre_instruments }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card text-center border-primary border-2">
+                <div class="card-body">
+                    <i class="bi bi-file-earmark-music fs-3 text-secondary"></i>
+                    <h5 class="card-title">Nombre d'annonces de partitions</h5>
+                    <p class="card-text text-bg-primary rounded-pill w-25 mx-auto">{{ nombre_partitions }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card text-center border-primary border-2">
+                <div class="card-body">
+                    <i class="bi bi-people-fill fs-3 text-secondary"></i>
+                    <h5 class="card-title">Nombre d'utilisateurs</h5>
+                    <p class="card-text text-bg-primary rounded-pill w-25 mx-auto">{{ nombre_user }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

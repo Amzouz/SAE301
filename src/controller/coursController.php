@@ -23,7 +23,7 @@ switch ($action) {
             $modele = 'authentification/connexion.twig';
             $data = ['erreur_cours' => 'Vous devez être connecté pour vous inscrire à un cours'];
         } else {
-            $modele = 'authentification/cours_inscription.twig';
+            $modele = 'cours/cours_inscription.twig';
             $data = [];
         }
         break;
@@ -99,6 +99,7 @@ switch ($action) {
 		header('Location: index.php?page=cours&action=read');
         }
         break;
+
 
     default:
         $modele = 'cours/cours.twig';

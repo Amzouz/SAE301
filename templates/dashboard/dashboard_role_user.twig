@@ -1,0 +1,24 @@
+{% extends "dashboard/base_dashboard.twig" %}
+
+{% block main %}
+
+<section class="my-5">
+    <form class="w-75 mx-auto" action="index.php?page=dashboard&action=role_update" method="post">
+
+        {% if user.id_user is defined %}
+            <input type="hidden" name="id_user" value={{ user.id_user }}>
+        {% endif %}
+
+        <div class="mb-3">
+            <label for="role" class="form-label">Définir le rôle de l'utilisateur :</label>
+            <select class="form-select" name="role" aria-label="Default select example">
+                <option value="visiteur" {% if user.role == 'visiteur' %} selected {% endif %}>Visiteur</option>
+                <option value="redacteur" {% if user.role == 'redacteur' %} selected {% endif %}>Rédacteur</option>
+                <option value="musicien" {% if user.role == 'musicien' %} selected {% endif %}>Musicien</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Actualiser</button>
+    </form>
+</section>
+
+{% endblock %}

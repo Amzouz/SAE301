@@ -1,0 +1,39 @@
+{% extends "base.twig" %}
+
+{% block main %}
+
+    <section class="container mx-auto my-5">
+        <h2 class="font_gluten text-center py-4">Mes annonces d'instruments :</h2>
+        <div class="row g-4">
+            {% for instruments in instruments %}
+                <div class="col-4">
+                    <div class="card text-center border-primary border-2">
+                        <div class="card-body">
+                            <h3>{{ instruments.nom_instru }}</h3>
+                            <h4>{{ instruments.reference_instru}}</h4>
+                            <p>Prix: {{ instruments.prix_instru }} €</p>
+                            <p>Date de création de l'annonce : {{ instruments.date_post_instru }}</p>
+                            <a href="index.php?page=instruments&action=read&id={{ instrument.id_instru }}" class="card-link">Voir le détail</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <h2 class="font_gluten text-center py-4">Mes annonces de partitions :</h2>
+        <div class="row g-4">
+            {% for partitions in partitions %}
+                <div class="col-4">
+                    <div class="card text-center border-primary border-2">
+                        <div class="card-body">
+                            <h3>{{ partitions.titre_partitions }}</h3>
+                            <p>Prix: {{ partitions.prix_instru }} €</p>
+                            <p>Date de création de l'annonce : {{ partitions.date_post_instru }}</p>
+                            <a href="index.php?page=partitions&action=read&id={{ partition.id_partitions }}" class="card-link">Voir le détail</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+{% endblock %}

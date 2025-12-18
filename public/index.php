@@ -37,6 +37,18 @@ switch ($page) {
         include(ROOT_PATH . '/src/controller/instrumentsController.php');
         break;
 
+    case 'partitions':
+        include(ROOT_PATH . '/src/controller/partitionsController.php');
+        break;
+
+    case 'dashboard':
+        include(ROOT_PATH . '/src/controller/dashboardController.php');
+        break;
+
+    case 'profil':
+        include(ROOT_PATH . '/src/controller/profilController.php');
+        break;
+
     default:
         $modele = 'accueil.twig';
         $data = [];

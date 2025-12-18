@@ -1,0 +1,72 @@
+{% extends "base.twig" %}
+
+{% block main %}
+
+    {% if session.role == 'administrateur' %}
+        <section class="bg-light pt-4 pb-2">
+            <div class="container">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="index.php?page=accueil">Accueil</a></li>
+                        <li class="breadcrumb-item"><a href="index.php?page=dashboard&action=read">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Mon profil</li>
+                    </ol>
+                </nav>
+            </div>
+        </section>
+    {% endif %}
+
+    <section class="container py-5">
+        <h1 class="text-center mb-3 font_gluten">Mon profil</h1>
+        <div class="row justify-content-center">
+            <div class="col-9">
+                <div class="shadow-lg rounded-4">
+                    <div class="bg-secondary text-white text-center py-4 rounded-top-4">
+                        <h2 class="mb-0 fs-3">{{ user.pseudo }}</h2>
+                    </div>
+                    <div class="card-body p-5">
+                        <div class="row">
+
+                                <article class="col-6 h-100 border rounded-3 p-4">
+                                    <h3 class="text-success mb-4 text-center">Mes informations</h3>
+                                    <div class="d-flex flex-column gap-3">
+                                        <p class="mb-0">Adresse mail : {{ user.mail }}</p>
+                                        <p class="mb-0">Nom : {{ user.nom }}</p>
+                                        <p class="mb-0">Prénom : {{ user.prenom }}</p>
+                                        {% if user.tel is empty %}
+                                            <p class="mb-0">Téléphone : <em>Pas de numéro associé</em></p>
+                                        {% else %}
+                                            <p class="mb-0">Téléphone : {{ user.tel }}</p>
+                                        {% endif %}
+                                        <p class="mb-0">Date de création : {{ user.rgpd }}</p>
+                                        <p class="mb-0">Rôle : <span class="badge bg-success">{{ user.role }}</span></p>
+                                    </div>
+                                    <div class="text-center mt-4">
+                                        <a href="index.php?page=profil&action=profil_edit&id={{ user.id_user }}" class="btn btn-outline-success test-bg-success">
+                                            <i class="bi bi-pencil-square me-2"></i>Modifier mes informations
+                                        </a>
+                                    </div>
+                                </article>
+
+
+                                <article class="col-6 h-100 border rounded-3 p-4 bg-light">
+                                    <h3 class="text-success mb-4 text-center">Activité</h3>
+                                    <div class="d-flex flex-column gap-3 justify-content-center">
+                                        <a href="index.php?page=profil&action=read_annonces&id={{ user.id_user }}" class="btn btn-success text-light btn-lg mb-4"><i class="bi bi-postcard-heart me-2"></i></i>Voir mes annonces</a>
+
+                                        {% if session.role == 'reponsable_annonces' or session.role == 'administrateur' %}
+
+                                            <h4 class="text-success text-center mb-3 border-top pt-4">Validation des annonces</h4>
+                                            <a href="index.php?page=profil&action=gestion_annonces" class="btn btn-outline-success"><i class="bi bi-chat-right-text me-2"></i>Gérer les annonces</a>
+                                        {% endif %}
+                                    </div>
+                                </article>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

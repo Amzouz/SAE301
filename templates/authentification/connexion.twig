@@ -3,12 +3,25 @@
 
 {% block main %}
     <div class="container mt-4 mb-3 p-5 w-50 border border-primary rounded-5">
+
+        {% if message_user %}
+            <p class="fs-4 text-center">{{ message_user }}</p>
+        {% endif %}
+
+        {% if message_musicien %}
+            <p class="fs-4 text-center">{{ message_musicien }}</p>
+        {% endif %}
+
         {% if erreur_cours %}
             <p class="fs-2 text-center text-danger">{{ erreur_cours }}</p>
         {% endif %}
 
         {% if erreur_instruments %}
             <p class="fs-2 text-center text-danger">{{ erreur_instruments }}</p>
+        {% endif %}
+
+        {% if erreur_partitions %}
+            <p class="fs-2 text-center text-danger">{{ erreur_partitions }}</p>
         {% endif %}
 
         {% if erreur_compte %}

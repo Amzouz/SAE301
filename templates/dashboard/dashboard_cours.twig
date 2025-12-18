@@ -1,0 +1,37 @@
+{% extends "dashboard/base_dashboard.twig" %}
+
+{% block main %}
+
+<secion class=" container">
+    {% for cours in cours %}
+        <ul class="list-group list-group-horizontal mx-auto w-75">
+            <li class="list-group-item">
+                <span class="badge text-bg-primary rounded-pill">{{ cours.id_cours }}</span>
+            </li>
+            <li class="list-group-item">
+                {{ cours.titre_cours }}
+            </li>
+            <li class="list-group-item">
+                {{ cours.desc_cours }}
+            </li>
+            <li class="list-group-item">
+                {{ cours.prix_cours }}
+            </li>
+            <li class="list-group-item">
+                {{ cours.type_cours }}
+            </li>
+            <li class="list-group-item">
+                {{ cours.date_creation_cours }}
+            </li>
+            <li class="list-group-item">
+                {{ cours.id_user }}
+            </li>
+            <li class="list-group-item d-flex flex-rox gap-3">
+                <a href="index.php?page=cours&action=edit&id={{cours.id_cours}}"><i class="bi bi-pencil-fill"></i></a>
+                <a href="index.php?page=cours&action=delete&id={{cours.id_cours}}"><i class="bi bi-trash3"></i></a>
+            </li>
+        </ul>
+    {% endfor %}
+</secion>
+
+{% endblock %}

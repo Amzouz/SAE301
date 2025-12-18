@@ -3,8 +3,16 @@
 {% block main %}
 
 {% if session is defined %}
-<h2>Félicitations votre instrument sera livré d'ici peu</h2>
+<div class="container py-5 d-flex justify-content-center">
+        <div class="w-50 shadow-lg text-center rounded-4">
+            <div class="card-body p-5">
+                <h1 class="font_gluten text-success fs-1 mb-4">Merci pour votre achat !</h1>
+                <p class="fs-4 mb-5">Votre produit sera livré d'ici peu</p>
+                <a href="index.php" class="btn btn-secondary">Retour à la page d'accueil</a>
+            </div>
+        </div>
+    </div>
+</div>
 {% endif %}
-
 
 {% endblock %}

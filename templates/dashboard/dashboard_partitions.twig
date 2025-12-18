@@ -1,0 +1,40 @@
+{% extends "dashboard/base_dashboard.twig" %}
+
+{% block main %}
+
+<secion class=" container">
+    {% for partition in partitions %}
+        <ul class="list-group list-group-horizontal mx-auto w-75">
+            <li class="list-group-item">
+                <span class="badge text-bg-primary rounded-pill">{{ partition.id_partitions }}</span>
+            </li>
+            <li class="list-group-item">
+                {{ partition.titre_partitions }}
+            </li>
+            <li class="list-group-item">
+                {{ partition.desc_partitions }}
+            </li>
+            <li class="list-group-item">
+                {{ partition.prix_partitions }}
+            </li>
+            <li class="list-group-item">
+                {{ partition.instru_partitions }}
+            </li>
+            <li class="list-group-item">
+                {{ partition.niveau_partitions }}
+            </li>
+            <li class="list-group-item">
+                {{ partition.date_post_partitions }}
+            </li>
+            <li class="list-group-item">
+                {{ partition.id_user }}
+            </li>
+            <li class="list-group-item d-flex flex-rox gap-3">
+                <a href="index.php?page=partitions&action=edit&id={{partition.id_partitions}}"><i class="bi bi-pencil-fill"></i></a>
+                <a href="index.php?page=partitions&action=delete&id={{partition.id_partitions}}"><i class="bi bi-trash3"></i></a>
+            </li>
+        </ul>
+    {% endfor %}
+</secion>
+
+{% endblock %}

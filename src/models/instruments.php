@@ -10,6 +10,7 @@ class Instruments {
     public $etat_instru;
     public $date_post_instru;
     public $id_user;
+    public $visible_instru;
 
 
     function chargePOST($id_user) {
@@ -21,7 +22,6 @@ class Instruments {
 
         if (isset($_POST['nom_instru']) && !empty($_POST['nom_instru'])) {
             $this->nom_instru = $_POST['nom_instru'];
-            $this->nom_instru = htmlspecialchars($this->nom_instru);
             $this->nom_instru = strip_tags($this->nom_instru);
         } else {
             $erreurs['nom_instru'] = 'Le nom de l\'instrument est obligatoire';
@@ -29,7 +29,6 @@ class Instruments {
 
         if (isset($_POST['desc_instru']) && !empty($_POST['desc_instru'])) {
             $this->desc_instru = $_POST['desc_instru'];
-            $this->desc_instru = htmlspecialchars($this->desc_instru);
             $this->desc_instru = strip_tags($this->desc_instru);
         } else {
             $erreurs['desc_instru'] = 'La description de l\'instrument est obligatoire';
@@ -54,7 +53,6 @@ class Instruments {
 
         if (isset($_POST['reference_instru']) && !empty($_POST['reference_instru'])) {
             $this->reference_instru = $_POST['reference_instru'];
-            $this->reference_instru = htmlspecialchars($this->reference_instru);
             $this->reference_instru = strip_tags($this->reference_instru);
         } else {
             $erreurs['reference_instru'] = 'La référence de l\'instrument est obligatoire';
@@ -69,6 +67,10 @@ class Instruments {
         }
 
         $this->id_user = $id_user;
+
+        if (isset($_POST['visible_instru'])) {
+            $this->visible_instru = $_POST['visible_instru'];
+        }
 
         return $erreurs;
     }
@@ -102,7 +104,7 @@ class Instruments {
 
 
     function update($id) {
-        $sql = 'UPDATE instruments SET nom_instru = :nom_instru, desc_instru = :desc_instru, prix_instru = :prix_instru, type_instru = :type_instru, reference_instru = :reference_instru, etat_instru = :etat_instru WHERE id_instru = :id';
+        $sql = 'UPDATE instruments SET nom_instru = :nom_instru, desc_instru = :desc_instru, prix_instru = :prix_instru, type_instru = :type_instru, reference_instru = :reference_instru, etat_instru = :etat_instru, visible_instru = :visible_instru WHERE id_instru = :id';
 
         $pdo = connexion();
         $query = $pdo->prepare($sql);
@@ -113,13 +115,14 @@ class Instruments {
         $query->bindValue(':type_instru', $this->type_instru, PDO::PARAM_STR);
         $query->bindValue(':reference_instru', $this->reference_instru, PDO::PARAM_STR);
         $query->bindValue(':etat_instru', $this->etat_instru, PDO::PARAM_STR);
+        $query->bindValue(':visible_instru', $this->visible_instru, PDO::PARAM_STR);
         $query->execute();
         return [];
     }
 
 
     function create() {
-        $sql = 'INSERT INTO instruments (nom_instru, desc_instru, prix_instru, type_instru, reference_instru, etat_instru, id_user) VALUES (:nom_instru, :desc_instru, :prix_instru, :type_instru, :reference_instru, :etat_instru, :id_user);';
+        $sql = 'INSERT INTO instruments (nom_instru, desc_instru, prix_instru, type_instru, reference_instru, etat_instru, id_user, visible_instru) VALUES (:nom_instru, :desc_instru, :prix_instru, :type_instru, :reference_instru, :etat_instru, :id_user, :visible_instru);';
         $pdo = connexion();
 
         $query = $pdo->prepare($sql);
@@ -130,6 +133,7 @@ class Instruments {
         $query->bindValue(':reference_instru', $this->reference_instru, PDO::PARAM_STR);
         $query->bindValue(':etat_instru', $this->etat_instru, PDO::PARAM_STR);
         $query->bindValue(':id_user', $this->id_user, PDO::PARAM_INT);
+        $query->bindValue(':visible_instru', $this->visible_instru, PDO::PARAM_STR);
         $query->execute();
         $this->id_instru = $pdo->lastInsertId();
         return [];
@@ -142,6 +146,36 @@ class Instruments {
         $query = $pdo->prepare($sql);
         $query->bindValue(':id_instru', $id, PDO::PARAM_INT);
         $query->execute();
+    }
+
+
+    static function nombre_instruments() {
+        $sql = 'SELECT COUNT(*) FROM instruments';
+        $pdo = connexion();
+        $query = $pdo->prepare($sql);
+        $query->execute();
+        $nombre_instruments = $query->fetchColumn();
+        return $nombre_instruments;
+    }
+
+    static function annonces_user($id) {
+        $sql = 'SELECT * FROM instruments WHERE id_user = :id';
+        $pdo = connexion();
+        $query = $pdo->prepare($sql);
+        $query->bindValue(':id', $id, PDO::PARAM_INT);
+        $query->execute();
+        $tableau = $query->fetchAll(PDO::FETCH_CLASS, 'Instruments');
+        return $tableau;
+    }
+
+    function update_visible($id) {
+        $sql = 'UPDATE instruments SET visible_instru = :visible_instru WHERE id_instru = :id';
+        $pdo = connexion();
+        $query = $pdo->prepare($sql);
+        $query->bindValue(':id', $id, PDO::PARAM_INT);
+        $query->bindValue(':visible_instru', $this->visible_instru, PDO::PARAM_INT);
+        $query->execute();
+        return [];
     }
 
 }

@@ -1,0 +1,22 @@
+{% extends "base.twig" %}
+
+{% block main %}
+
+    <form class="w-75 mx-auto" action="index.php?page=profil&action=visible_update&id={{ instruments.id_instru }}" method="post">
+
+        {% if instruments.id_instru is defined %}
+            <input type="hidden" name="id_instru" value="{{ instruments.id_instru }}">
+        {% endif %}
+
+        <div class="mb-3">
+            <label for="visible_instru" class="form-label">Définir la visibilité de l'annonce :</label>
+            <select class="form-select" name="visible_instru" aria-label="Default select example">
+                <option value="0" {% if instruments.visible_instru == 0 %} selected {% endif %}>Invisible</option>
+                <option value="1" {% if instruments.visible_instru == 1 %} selected {% endif %}>Visible</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Actualiser</button>
+    </form>
+
+
+{% endblock %}

@@ -20,7 +20,7 @@ switch ($action) {
     case 'check_compte' :
         if (!$_SESSION) {
             $modele = 'authentification/connexion.twig';
-            $data = ['erreur_instruments' => 'Vous devez être connecté pour acheter un instruments'];
+            $data = ['erreur_instruments' => 'Vous devez être connecté pour acheter un instrument'];
         } else {
             $modele = 'produits/produits_achat.twig';
             $data = [];
@@ -55,7 +55,7 @@ switch ($action) {
             $modele = 'produits/instruments_detail.twig';
             $data = [
                 'erreur_droit_instru' => 'Accès refusé, vous n\'avez pas les droits pour modifier cet instrument.',
-                'instrument' => Instruments::readOne($id)
+                'instruments' => Instruments::readOne($id)
             ];
         } else {
             $modele = 'produits/instruments_form.twig';
@@ -93,8 +93,8 @@ switch ($action) {
                 'instruments' => Instruments::readOne($id)
             ];
         } else {
-        Instruments::delete($id);
-        header('Location: index.php?page=instruments&action=read');
+            Instruments::delete($id);
+            header('Location: index.php?page=instruments&action=read');
         }
         break;
 

@@ -2,11 +2,13 @@
 
 {% block main %}
 
-
-<section class="container">
+<div class="container py-5 mx-auto">
+    <div class="bg-secondary 4 mx-auto w-75">
+        <h2 class="text-bg-secondary text-center font_gluten py-3 mb-4">{% if cours.id_cours is defined %}Modifier{% else %}Créer{% endif %} un cours</h2>
+    </div>
 
     {% if erreurs %}
-        <div class="text-danger text-center">
+        <div class="alert alert-danger w-75 mx-auto">
             <ul class="mb-0">
                 {% for erreur in erreurs %}
                 <li>{{ erreur }}</li>
@@ -18,32 +20,33 @@
     <form class="w-75 mx-auto" action="index.php?page=cours&action={% if cours %}update{% else %}create{% endif %}" method="post">
 
         {% if cours.id_cours is defined %}
-        <input type="hidden" name="id_cours" value={{ cours.id_cours }}>
+        <input type="hidden" name="id_cours" value="{{ cours.id_cours }}">
         {% endif %}
 
-
-    <div class="mb-3">
-        <label for="titre_cours" class="form-label">Titre du cours :</label>
-        <input type="text" name="titre_cours" value="{{ cours.titre_cours }}" class="form-control">
-    </div>
-    <div class="mb-3">
-        <label for="desc_cours" class="form-label">Description :</label>
-        <input type="text-area" name="desc_cours" value="{{ cours.desc_cours }}" class="form-control">
-    </div>
-    <div class="mb-3">
-        <label for="prix" class="form-label">Prix :</label>
-        <input type="number" name="prix_cours" value="{{ cours.prix_cours }}" class="form-control">
-    </div>
-    <div class="mb-3">
-        <label for="pseudo" class="form-label">Type  :</label>
-        <select class="form-select" name="type_cours" aria-label="Default select example">
-            <option value="individuel" {% if cours.type_cours == 'individuel' %} selected {% endif %}>Individuel</option>
-            <option value="collectif"  {% if cours.type_cours == 'collectif '%} selected {% endif %}>Collectif</option>
-        </select>
-    </div>
-    <button type="submit" class="btn btn-primary mt-3">{% if cours.id_cours is defined %}Modifier{% else %}Créer{% endif %}</button>
+        <div class="mb-3">
+            <label for="titre_cours" class="form-label text-primary">Titre du cours :</label>
+            <input type="text" name="titre_cours" value="{{ cours.titre_cours }}" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="desc_cours" class="form-label text-primary">Description :</label>
+            <textarea name="desc_cours" class="form-control" rows="3">{{ cours.desc_cours }}</textarea>
+        </div>
+        <div class="mb-3">
+            <label for="prix" class="form-label text-primary">Prix :</label>
+            <input type="number" name="prix_cours" value="{{ cours.prix_cours }}" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="type_cours" class="form-label text-primary">Type :</label>
+            <select class="form-select text-primary" name="type_cours">
+                <option value="individuel" {% if cours.type_cours == 'individuel' %} selected {% endif %}>Individuel</option>
+                <option value="collectif"  {% if cours.type_cours == 'collectif '%} selected {% endif %}>Collectif</option>
+            </select>
+        </div>
+        <div class="d-flex flex-row gap-3">
+            <button type="submit" class="btn btn-primary mt-3">{% if cours.id_cours is defined %}Modifier{% else %}Créer{% endif %}</button>
+            <a href="index.php?page=cours&action=read&id={{ cours.id_cours }}" class="btn btn-secondary mt-3">Annuler</a>
+        </div>
     </form>
-</section>
-
+</div>
 
 {% endblock %}

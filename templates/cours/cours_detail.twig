@@ -3,27 +3,64 @@
 
 {% block main %}
 
-    {% if session.role == 'musicien'%}
-    <section class="container">
-        <ul class="d-flex flex-row justify-content-center gap-3 pt-4">
-            <li><a href="index.php?page=cours&action=edit&id={{cours.id_cours}}" class="p-2 border bg-secondary text-bg-secondary rounded-3 text-decoration-none">Modifier</a></li>
-            <li><a href="index.php?page=cours&action=delete&id={{cours.id_cours}}" class="p-2 border bg-secondary text-bg-secondary rounded-3 text-decoration-none">Supprimer</a></li>
-        </ul>
+    <section class="bg-light py-3">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="index.php?page=accueil">Accueil</a></li>
+                    <li class="breadcrumb-item"><a href="index.php?page=cours">Cours</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ cours.titre_cours }}</li>
+                </ol>
+            </nav>
+        </div>
     </section>
+
+    {% if erreur_droit %}
+    <p class="text-danger fs-4 text-center pt-2">{{ erreur_droit }}</p>
     {% endif %}
 
-    <section class="container mx-auto my-5 text-center">
-        <p class="text-danger fs-3 text-center py-1 fs-3">{{ erreur_droit }}</p>
-        <h1 class="font_gluten">{{ cours.titre_cours }}</h1>
-        <p>{{ cours.desc_cours }}</p>
-        <p>Prix du cours : {{ cours.prix_cours }} €</p>
-        <p>Type de cours : {{ cours.type_cours }}</p>
-        <p>Date de création du cours : {{ cours.date_creation_cours }}</p>
-        <a href="index.php?page=cours&action=check_compte" class="bg-primary rounded-3 px-3 py-2 text-bg-primary text-decoration-none">S'inscrire</a>
+    <section class="container my-5">
+        <div class="row">
+            <div class="col-8">
+                <div class="p-4">
+                    <h1 class="font_gluten fs-1 text-primary mb-4">{{ cours.titre_cours }}</h1>
+                    <div class="mb-4">
+                        <span class="badge bg-primary px-3 py-2">{{ cours.type_cours }}</span>
+                    </div>
+                    <div class="mb-4">
+                        <h3 class="fw-bold text-secondary fs-5 mb-3">Description</h3>
+                        <p>{{ cours.desc_cours }}</p>
+                    </div>
+                    <div class="border-top border-success pt-3 mt-4">
+                        <p class="text-muted mb-1"><i class="bi bi-calendar"></i> Annonce publiée le {{ cours.date_creation_cours }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card border-1 border-success shadow">
+                    <div class="card-body p-4">
+                        <div class="text-center mb-4">
+                            <p class="fs-1 fw-bold text-primary mb-2">{{ cours.prix_cours }} €</p>
+                            <p>par cours</p>
+                        </div>
+                        <div class="text-center gap-2">
+                            <a href="index.php?page=cours&action=check_compte" class="btn btn-primary btn-lg">S'inscrire au cours</a>
+                        </div>
+                    </div>
+                </div>
+
+                {% if session.role == 'musicien' or 'administrateur' %}
+                <div class="mt-3">
+                    <div class="card-body p-3">
+                        <div class="d-grid gap-2">
+                            <a href="index.php?page=cours&action=edit&id={{cours.id_cours}}" class="btn btn-outline-secondary btn-sm"><i class="bi bi-pencil-fill"></i></i> Modifier</a>
+                            <a href="index.php?page=cours&action=delete&id={{cours.id_cours}}" class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i> Supprimer</a>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
     </section>
-
-
-
-
 
 {% endblock %}

@@ -1,0 +1,62 @@
+{% extends "base.twig" %}
+
+{% block main %}
+
+<div class="container py-5 mx-auto">
+    <div class="bg-secondary 4 mx-auto w-75">
+        <h2 class="text-bg-secondary text-center font_gluten py-3 mb-4">{% if partitions.id_partitions is defined %}Modifier{% else %}Créer{% endif %} une partition</h2>
+    </div>
+
+    {% if erreurs %}
+        <div class="alert alert-danger w-75 mx-auto">
+            <ul class="mb-0">
+                {% for erreur in erreurs %}
+                <li>{{ erreur }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <form class="w-75 mx-auto" action="index.php?page=partitions&action={% if partitions %}update{% else %}create{% endif %}" method="post">
+
+        {% if partitions.id_partitions is defined %}
+        <input type="hidden" name="id_partitions" value="{{ partitions.id_partitions }}">
+        {% endif %}
+
+        <div class="mb-3">
+            <label for="titre_partitions" class="form-label text-primary">Titre de la partition :</label>
+            <input type="text" name="titre_partitions" value="{{ partitions.titre_partitions }}" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label for="desc_partitions" class="form-label text-primary">Description :</label>
+            <textarea name="desc_partitions" class="form-control" rows="3">{{ partitions.desc_partitions }}</textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="prix_partitions" class="form-label text-primary">Prix :</label>
+            <input type="number" name="prix_partitions" value="{{ partitions.prix_partitions }}" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label for="instru_partitions" class="form-label text-primary">Instrument :</label>
+            <input type="text" name="instru_partitions" value="{{ partitions.instru_partitions }}" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label for="niveau_partitions" class="form-label text-primary">Niveau :</label>
+            <select class="form-select text-primary" name="niveau_partitions">
+                <option value="Débutant" {% if partitions.niveau_partitions == 'Débutant' %} selected {% endif %}>Débutant</option>
+                <option value="Avancé" {% if partitions.niveau_partitions == 'Avancé '%} selected {% endif %}>Avancé</option>
+                <option value="Expert" {% if partitions.niveau_partitions == 'Expert'%} selected {% endif %}>Expert</option>
+            </select>
+        </div>
+
+        <div class="d-flex flex-row gap-3">
+            <button type="submit" class="btn btn-primary mt-3">{% if partitions.id_partitions is defined %}Modifier{% else %}Créer{% endif %}</button>
+            <a href="index.php?page=partitions" class="btn btn-secondary mt-3">Annuler</a>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

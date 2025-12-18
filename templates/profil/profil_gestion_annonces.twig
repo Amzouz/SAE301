@@ -1,0 +1,30 @@
+
+{% extends "base.twig" %}
+
+{% block main %}
+
+    <section class="container mx-auto my-5">
+        <h2 class="font_gluten text-center py-4">Les annonces d'instruments :</h2>
+        <div class="row g-4">
+            {% for instruments in instruments %}
+                <div class="col-4">
+                    <div class="card text-center border-primary border-2">
+                        <div class="card-body">
+                            <h3>{{ instruments.nom_instru }}</h3>
+                            <h4>{{ instruments.reference_instru}}</h4>
+                            <p>Date de création de l'annonce : {{ instruments.date_post_instru }}</p>
+                            {% if instruments.visible_instru == 1 %}
+                            <p>Visibilité : visible</p>
+                            {% else %}
+                            <p>Visibilité : invisible</p>
+                            {% endif %}
+                            <a href="index.php?page=instruments&action=read&id={{ instruments.id_instru }}" class="card-link">En savoir plus</a>
+                            <a href="index.php?page=profil&action=gestion_annonces_edit&id={{ instruments.id_instru }}" class="card-link">Afficher l'annonce</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+{% endblock %}

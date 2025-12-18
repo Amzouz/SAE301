@@ -3,22 +3,39 @@
 
 {% block main %}
 
-    <section class="row p-5 my-4">
-        <div class="col container w-25 pt-5 d-flex flex-column align-items-center">
+        {% if erreur_droit_role %}
+            <div class="alert alert-danger">
+                <ul class="mb-0">
+                    {% for erreur in erreur_droit_role %}
+                    <li>{{ erreur }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+    <section class="container">
+        <div class="row py-4 my-5">
+            <div class="col w-25 pt-5 d-flex flex-column align-items-center">
+
             {% if session.pseudo is not defined %}
                 <h1 class="fs-2 text-center font_gluten">Bienvenue sur Musicoco !</h1>
                 <p class="text-center">Le site qui vous propose tout ce dont vous avez besoin pour faire de la musique.</p>
                 <h2 class="fs-5 font_gluten text-center pt-4">Vous n'avez pas encore de compte ?</h2>
-                <a href='index.php?page=authentification&action=inscription' class="btn btn-primary my-3">Inscrivez-vous !</a>
+                <a href='index.php?page=authentification&action=inscription' class="btn btn-primary my-3 fs-5">Inscrivez-vous !</a>
             {% endif %}
+
             {% if session.pseudo is defined %}
                 <h1 class="fs-2 text-center font_gluten">Bienvenue {{ session.pseudo }} !</h1>
-                <p class="text-center">Que souhaitez-vous faire aujourd'hui ?</p>
+                <p class=" text-center">Que souhaitez-vous faire aujourd'hui ?</p>
+                <ul class="mt-5 d-flex justify-content-center gap-3 ps-0">
+                    <li><a href="index.php?page=instruments&action=nouveau" class="py-2 px-3 rounded-3 bg-secondary text-bg-secondary text-decoration-none">Vendre un instrument</a></li>
+                    <li><a href="index.php?page=cours&action=read" class="py-2 px-3 rounded-3 bg-secondary text-bg-secondary text-decoration-none">S'inscrire à un cours</a></li>
+                </ul>
             {% endif %}
         </div>
 
-        <div class="col container">
-            <div id="carouselExampleCaptions" class="carousel slide carrousel_height w-100 mx-auto ">
+        <div class="col container p-2">
+            <div id="carouselExampleCaptions" class="carousel slide carrousel_height w-100">
                 <div class="carousel-indicators">
                     <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"             aria-current="true"      aria-label="Slide 1"></button>
                     <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -26,25 +43,25 @@
                 </div>
                 <div class="carousel-inner h-100 rounded-5 ">
                     <div class="carousel-item bg-secondary active h-100">
-                    <img src="../public/img/carrousel_cours.jpg" class="d-block w-100 opacity-50" alt="photo d'un cours de musique -    freepik">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>Le savoir se partage</h5>
-                        <p>Progressez avec des cours et l'expérience d'artistes passionnés !</p>
-                    </div>
+                        <img src="../public/img/carrousel_cours.jpg" class="d-block w-100 opacity-50" alt="photo d'un cours de musique -    freepik">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>Le savoir se partage</h5>
+                            <p>Progressez avec des cours et l'expérience d'artistes passionnés !</p>
+                        </div>
                     </div>
                     <div class="carousel-item bg-secondary h-100">
-                    <img src="../public/img/carrousel_instru.jpg" class="d-block w-100 h-100 opacity-50" alt="photo d'un instrument -   freepik">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>La passion s'emporte</h5>
-                        <p>Des instruments à vendre de musicien, à musicien !</p>
+                        <img src="../public/img/carrousel_instru.jpg" class="d-block w-100 h-100 opacity-50" alt="photo d'un instrument - freepik">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>La passion s'emporte</h5>
+                            <p>Des instruments à vendre de musicien, à musicien !</p>
+                        </div>
                     </div>
-                    </div>
-                    <div class="carousel-item bg-secondary">
-                    <img src="../public/img/carrousel_partition.jpg" class="d-block w-100 opacity-50" alt="Photo d'une partition -  freepik">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>La musique se transmet</h5>
-                        <p>Des partitions originales pour enrichir votre répertoire !</p>
-                    </div>
+                    <div class="carousel-item bg-secondary h-100">
+                        <img src="../public/img/carrousel_partition.jpg" class="d-block w-100 opacity-50" alt="Photo d'une partition - freepik">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>La musique se transmet</h5>
+                            <p>Des partitions originales pour enrichir votre répertoire !</p>
+                        </div>
                     </div>
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
@@ -56,6 +73,7 @@
                     <span class="visually-hidden">Next</span>
                 </button>
             </div>
+        </div>
         </div>
     </section>
 

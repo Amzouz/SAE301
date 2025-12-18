@@ -1,0 +1,41 @@
+{% extends "base.twig" %}
+
+{% block main %}
+
+<section class="contanier py-5">
+    <h1 class="text-center font_gluten text-primary mb-4">Modifier mes informations personnelles</h1>
+    <form class="w-50 mx-auto" action="index.php?page=profil&action=profil_update&id={{ user.id_user }}" method="post">
+
+            {% if user.id_user is defined %}
+            <input type="hidden" name="id_user" value={{ user.id_user }}>
+            {% endif %}
+
+        <div class="mb-3">
+            <label for="pseudo" class="form-label text-primary">Pseudo :</label>
+            <input type="text" name="pseudo" value="{{ user.pseudo }}" class="form-control border-secondary shadow ">
+        </div>
+        <div class="mb-3">
+            <label for="mail" class="form-label text-primary">Adresse mail :</label>
+            <input type="text" name="mail" value="{{ user.mail }}" class="form-control border-secondary shadow">
+        </div>
+        <div class="mb-3">
+            <label for="nom" class="form-label text-primary">Nom :</label>
+            <input type="textarea" name="nom" value="{{ user.nom }}" class="form-control border-secondary shadow">
+        </div>
+        <div class="mb-3">
+            <label for="prenom" class="form-label text-primary">Prénom :</label>
+            <input type="text" name="prenom" value="{{ user.prenom }}" class="form-control border-secondary shadow">
+        </div>
+        <div class="mb-3">
+            <label for="tel" class="form-label text-primary">Téléphone (facultatif) :</label>
+            <input type="text" name="tel" value="{{ user.tel }}" class="form-control border-secondary shadow">
+        </div>
+        <div class="mb-3">
+            <label for="mot_de_passe" class="form-label text-primary">Mot de Passe :</label>
+            <input type="text" name="mot_de_passe" value="{{ user.mot_de_passe }}" class="form-control border-secondary shadow">
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Actualiser</button>
+    </form>
+</section>
+
+{% endblock %}
