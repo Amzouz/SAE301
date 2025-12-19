@@ -1,4 +1,6 @@
 {% extends "base.twig" %}
+{# FORMULAIRE POUR MODIFIER OU CREER UNE PARTITION #}
+
 
 {% block main %}
 
@@ -8,6 +10,7 @@
     </div>
 
     {% if erreurs %}
+    {# erreurs si des champs ne sont pas remplis #}
         <div class="alert alert-danger w-75 mx-auto">
             <ul class="mb-0">
                 {% for erreur in erreurs %}

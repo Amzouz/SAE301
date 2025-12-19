@@ -1,4 +1,5 @@
 <?php
+//Classe Arrangements (pour les partitions) avec ses fonctions, appelée ainsi car "partition" est une fonction sql
 
 class Arrangements {
     public $id_partitions;
@@ -130,7 +131,7 @@ class Arrangements {
         $query->execute();
     }
 
-    static function nombre_partitions() {
+    static function nombre_partitions() { //compte le nombre d'annonces pour le dashboard
         $sql = 'SELECT COUNT(*) FROM arrangements';
         $pdo = connexion();
         $query = $pdo->prepare($sql);
@@ -139,7 +140,7 @@ class Arrangements {
         return $nombre_partitions;
     }
 
-    static function annonces_user($id) {
+    static function annonces_user($id) { // pour que chaque utilisateur voit ses annonces dans le profil
         $sql = 'SELECT * FROM arrangements WHERE id_user = :id';
         $pdo = connexion();
         $query = $pdo->prepare($sql);

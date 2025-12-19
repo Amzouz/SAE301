@@ -1,4 +1,5 @@
 {% extends "base.twig" %}
+{# FORMULAIRE POUR CREER OU MODIFIER UN COURS #}
 
 {% block main %}
 
@@ -8,6 +9,7 @@
     </div>
 
     {% if erreurs %}
+    {# erreurs si des champs obligatoires ne sont pas remplis #}
         <div class="alert alert-danger w-75 mx-auto">
             <ul class="mb-0">
                 {% for erreur in erreurs %}

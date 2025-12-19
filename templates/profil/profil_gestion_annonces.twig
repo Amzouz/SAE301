@@ -1,5 +1,6 @@
 
 {% extends "base.twig" %}
+{# PAGE POUR QUE LE RESPONSABLE ANNONCE OU L'ADMIN VOIENT TOUTES LES ANNONCES D'INSTRUMENTS ET GERENT LEUR VISIBILITE (changement client du 18/12) #}
 
 {% block main %}
 
@@ -7,7 +8,7 @@
         <h2 class="font_gluten text-center py-4">Les annonces d'instruments :</h2>
         <div class="row g-4">
             {% for instruments in instruments %}
-                <div class="col-4">
+                <div class="col-6 col-lg-4">
                     <div class="card text-center border-primary border-2">
                         <div class="card-body">
                             <h3>{{ instruments.nom_instru }}</h3>

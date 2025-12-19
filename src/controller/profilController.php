@@ -1,4 +1,6 @@
 <?php
+//Ce controller gère la page profil, avec la possibilité de voir les informations, de les supprimer, d'avoir accès à ses annonces, et pour le responsable_annonce, de valider la visibilité de celles-ci (changement client du 18/12)
+
 include(ROOT_PATH . '/src/models/cours.php');
 include(ROOT_PATH . '/src/models/instruments.php');
 include(ROOT_PATH . '/src/models/partitions.php');
@@ -35,7 +37,6 @@ switch ($action) {
             'user' => User::readOne($id),
             'instruments' => Instruments::annonces_user($id),
             'partitions' => Arrangements::annonces_user($id),
-            'cours' => Cours::annonces_user($id),
         ];
         break;
 
@@ -53,16 +54,12 @@ switch ($action) {
         ];
         break;
 
-    case 'visible_update' :
+    case 'visible_update' : //Pour que le responsable_annonce valide si une annonce d'instrument postée par un "visiteur" soit visible ou non (changement client du 18/12)
         requireRole('reponsable_annonces');
         $instrument = Instruments::readOne($id);
         $instrument->visible_instru = $_POST['visible_instru'];
         $instrument->update_visible($id);
         header('Location: index.php?page=profil&action=gestion_annonces');
-        // $instruments = new Instruments();
-        // $instruments->chargePOST();
-        // $instruments->update_visible($id);
-        // header('Location: index.php?page=profil&action=gestion_annonces');
         exit;
         break;
 

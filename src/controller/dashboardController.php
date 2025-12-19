@@ -1,4 +1,6 @@
 <?php
+//Ce controller gère la partie dashboard de l'administrateur, pour voir toutes les annonces du site, les utilisateurs, et modifier les rôles des utilisateurs au besoin
+
 include(ROOT_PATH . '/src/models/cours.php');
 include(ROOT_PATH . '/src/models/instruments.php');
 include(ROOT_PATH . '/src/models/partitions.php');
@@ -6,11 +8,11 @@ include(ROOT_PATH . '/src/models/partitions.php');
 switch ($action) {
 
     case 'read' :
-        requireRole('administrateur');
+        requireRole('administrateur'); //Fonction qui permet que tout ça soit accessible que pour l'administrateur (cf auth/fonctionsAcces.php)
         $modele = 'dashboard/dashboard.twig';
         $data = [
             'page_active' => 'accueil',
-            'nombre_cours' => Cours::nombre_cours(),
+            'nombre_cours' => Cours::nombre_cours(), //Ces fonctions permettent de compter le nombre d'annonces/utilisateurs du site
             'nombre_instruments' => Instruments::nombre_instruments(),
             'nombre_partitions' => Arrangements::nombre_partitions(),
             'nombre_user' => User::nombre_user()

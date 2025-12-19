@@ -1,4 +1,6 @@
 <?php
+//Ce controller gère les annonces d'instruments
+
 include(ROOT_PATH . '/src/models/instruments.php');
 
 switch ($action) {
@@ -39,6 +41,7 @@ switch ($action) {
         if (empty($erreurs)) {
             $instruments->create();
             header('Location: index.php?page=instruments&action=read&id='.$instruments->id_instru);
+            exit;
         } else {
             $modele = 'produits/instruments_form.twig';
             $data = [
@@ -51,7 +54,7 @@ switch ($action) {
 
     case 'edit' :
         $instruments = Instruments::readOne($id);
-        if (!checkOwner($instruments->id_user)) {
+        if (!checkOwner($instruments->id_user)) { //seul le créateur de l'annonce peut la modifier
             $modele = 'produits/instruments_detail.twig';
             $data = [
                 'erreur_droit_instru' => 'Accès refusé, vous n\'avez pas les droits pour modifier cet instrument.',
@@ -86,7 +89,7 @@ switch ($action) {
 
     case 'delete':
         $instruments = Instruments::readOne($id);
-        if (!checkOwner($instruments->id_user)) {
+        if (!checkOwner($instruments->id_user)) {  //seul le créateur de l'annonce peut la supprimer
             $modele = 'produits/instruments_detail.twig';
             $data = [
                 'erreur_droit_instru' => 'Accès refusé, vous n\'avez pas les droits pour supprimer cet instrument.',
@@ -95,6 +98,7 @@ switch ($action) {
         } else {
             Instruments::delete($id);
             header('Location: index.php?page=instruments&action=read');
+            exit;
         }
         break;
 

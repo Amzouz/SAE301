@@ -1,14 +1,17 @@
+{# BASE AVEC HEADER ET FOOTER #}
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
-    <title>SAE301</title>
-    <!--CSS compilé pour bootstrap-->
+    <title>SAE301_ZIRLI_Amélie</title>
+    <!--CSS compilé pour bootstrap :-->
     <link rel="stylesheet" href="main.css">
-    <!--Icones Bootstrap-->
+    <!--Icones Bootstrap :-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <!--Penser à faire npm run dev si je créer un nouveau fichier pour qu'il le prenne en compte poru al compilation-->
+    <!--Penser à faire npm run dev si je créé un nouveau fichier/custom pour qu'il le prenne en compte pour la compilation du css bootstrap-->
 </head>
 
 <body>
@@ -20,7 +23,7 @@
             <img src="../public/img/logo.png" class="logo_size" alt="logo - freepik">
             </a>
             <a class="navbar-brand text-bg-primary ps-3 me-4 font_gluten fs-3" href="index.php">Musicoco</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="bg-light navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -39,12 +42,14 @@
                 </ul>
                 </li>
             </ul>
-            <ul class="navbar-nav mb-lg-0 mx-2 align-items-center">
+            <ul class="navbar-nav mb-lg-0 mx-lg-2 ">
+
                 {% if session.pseudo is not defined %}
                     <li class="nav-item">
                     <a class="nav-link text-bg-primary" href='index.php?page=authentification&action=connexion'>Se connecter</a>
                     </li>
                 {% endif %}
+
                 {% if session.pseudo is defined %}
                     <li class="nav-item">
                         {% if session.role == 'administrateur' %}
@@ -57,6 +62,7 @@
                         <a class="nav-link text-bg-primary" href='index.php?page=authentification&action=deconnexion'>Se déconnecter</a>
                     </li>
                 {% endif %}
+
             </ul>
             </div>
         </div>
@@ -67,6 +73,7 @@
 <main>
 {% block nav %}
 {% endblock %}
+{# ce block est pour la nav du dashboard #}
 
 {% block main %}
 
@@ -74,21 +81,21 @@
 </main>
 
 
-<footer class=" bg-primary mx-0 py-4">
-    <div class=" container mx-auto py-5 d-flex flex-row justify-content-between">
-        <div>
+<footer class="bg-primary mx-0 py-4">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 container mx-auto py-5">
+        <div class="col">
             <a href="index.php">
                 <img src="../public/img/logo.png" class="logo_size" alt="logo - freepik">
             </a>
             <a class="navbar-brand text-bg-primary ps-3 me-4 font_gluten fs-3" href="index.php">Musicoco</a>
         </div>
-        <nav class="nav flex-column">
+        <nav class="col nav flex-column">
             <a class="nav-link text-bg-primary" aria-current="page" href="index.php">Accueil</a>
             <a class="nav-link text-bg-primary" href="index.php?page=cours&action=read">Cours</a>
             <a class="nav-link text-bg-primary" href="index.php?page=instruments&action=read">Instruments</a>
             <a class="nav-link text-bg-primary" href="index.php?page=partitions&action=read">Partitions</a>
         </nav>
-        <nav class="nav flex-column">
+        <nav class="col nav flex-column">
             {% if session.pseudo is not defined %}
                 <a class="nav-link text-bg-primary" href='index.php?page=authentification&action=connexion'>Se connecter</a>
             {% endif %}
@@ -99,7 +106,7 @@
             <a class="nav-link text-bg-primary" href="#">Politique de confidentialité</a>
             <a class="nav-link text-bg-primary" href="#">Contact</a>
         </nav>
-        <div class="d-flex flex-column gap-4">
+        <div class="col d-flex flex-column justify-content-md-end gap-4">
             <form class="d-flex h-25" role="search">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Rechercher"/>
                 <button class="btn btn-outline-light" type="submit">Rechercher</button>
@@ -110,7 +117,7 @@
 </footer>
 
 
-<!-- Scripts -->
+<!-- Scripts bootstrap -->
     <script type="module" src="/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 

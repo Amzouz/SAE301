@@ -1,34 +1,42 @@
 {% extends "base.twig" %}
+{# PAGE POUR SE CONNECTER A SON COMPTE #}
 
 
 {% block main %}
-    <div class="container mt-4 mb-3 p-5 w-50 border border-primary rounded-5">
+    <div class="container mt-5 mb-2 p-5 w-50 border border-primary rounded-5">
 
         {% if message_user %}
+        {# quand quelquun a créé son compte : dit que ça a bien été créé #}
             <p class="fs-4 text-center">{{ message_user }}</p>
         {% endif %}
 
         {% if message_musicien %}
+        {# quand quelquun a créé son compte : dit que ça a bien été créé #}
             <p class="fs-4 text-center">{{ message_musicien }}</p>
         {% endif %}
 
         {% if erreur_cours %}
+        {# si quelquun veut s'inscrire à un cours mais qu'il n'est pas connecté #}
             <p class="fs-2 text-center text-danger">{{ erreur_cours }}</p>
         {% endif %}
 
         {% if erreur_instruments %}
+        {# si quelquun veut acheter un instrument mais qu'il n'est pas connecté #}
             <p class="fs-2 text-center text-danger">{{ erreur_instruments }}</p>
         {% endif %}
 
         {% if erreur_partitions %}
+        {# si quelquun veut acheter une partition mais qu'il n'est pas connecté #}
             <p class="fs-2 text-center text-danger">{{ erreur_partitions }}</p>
         {% endif %}
 
         {% if erreur_compte %}
+        {# si le compte n'existe pas #}
             <p class="alert alert-danger">{{ erreur_compte }}</p>
         {% endif %}
 
         {% if erreurs %}
+        {# les erreurs si les champs ne sont pas remplis #}
             <div class="alert alert-danger">
                 <ul class="mb-0">
                     {% for erreur in erreurs %}
@@ -37,6 +45,7 @@
                 </ul>
             </div>
         {% endif %}
+
 
         <h1 class="text-center pb-4 font_gluten pt-3">Vous revoilà ! </h1>
         <section class="container">
@@ -54,7 +63,8 @@
         </section>
     </div>
 
-    <section class="container text-center">
+    
+    <section class="container text-center mb-5">
         <p>Vous n'avez pas encore de compte ?</p>
         <p><a href="index.php?page=authentification&action=inscription">Cliquez ici pour vous inscrire !</a></p>
     </section>

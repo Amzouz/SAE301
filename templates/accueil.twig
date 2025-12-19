@@ -1,21 +1,12 @@
 {% extends "base.twig" %}
+{# PAGE D'ACCUEIL #}
 
 
 {% block main %}
 
-        {% if erreur_droit_role %}
-            <div class="alert alert-danger">
-                <ul class="mb-0">
-                    {% for erreur in erreur_droit_role %}
-                    <li>{{ erreur }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-        {% endif %}
-
     <section class="container">
-        <div class="row py-4 my-5">
-            <div class="col w-25 pt-5 d-flex flex-column align-items-center">
+        <div class="row row-cols-1 row-cols-md-1 row-cols-lg-2 py-4 my-5">
+            <div class="col pt-5 d-flex flex-column align-items-center">
 
             {% if session.pseudo is not defined %}
                 <h1 class="fs-2 text-center font_gluten">Bienvenue sur Musicoco !</h1>
@@ -76,9 +67,6 @@
         </div>
         </div>
     </section>
-
-    {% if pseudo is not defined %}
-    {% endif %}
 
 
 

@@ -1,4 +1,5 @@
 <?php
+//Classe Instrument avec les fonctions associées
 
 class Instruments {
     public $id_instru;
@@ -115,7 +116,7 @@ class Instruments {
         $query->bindValue(':type_instru', $this->type_instru, PDO::PARAM_STR);
         $query->bindValue(':reference_instru', $this->reference_instru, PDO::PARAM_STR);
         $query->bindValue(':etat_instru', $this->etat_instru, PDO::PARAM_STR);
-        $query->bindValue(':visible_instru', $this->visible_instru, PDO::PARAM_STR);
+        $query->bindValue(':visible_instru', $this->visible_instru, PDO::PARAM_STR); //visible_instru = si l'annonce est visible ou non (changement client du 18/12)
         $query->execute();
         return [];
     }
@@ -149,7 +150,7 @@ class Instruments {
     }
 
 
-    static function nombre_instruments() {
+    static function nombre_instruments() { //compte le nombre d'annonces instruments total pour le dashboard admin
         $sql = 'SELECT COUNT(*) FROM instruments';
         $pdo = connexion();
         $query = $pdo->prepare($sql);
@@ -158,7 +159,7 @@ class Instruments {
         return $nombre_instruments;
     }
 
-    static function annonces_user($id) {
+    static function annonces_user($id) { // pour que chaque utilisateur voit ses annonces dans le profil
         $sql = 'SELECT * FROM instruments WHERE id_user = :id';
         $pdo = connexion();
         $query = $pdo->prepare($sql);
@@ -168,7 +169,7 @@ class Instruments {
         return $tableau;
     }
 
-    function update_visible($id) {
+    function update_visible($id) { //pour que le responsable_annonces actualise la donnée "visible_instru" des annonces instruments (changement client du 18/12)
         $sql = 'UPDATE instruments SET visible_instru = :visible_instru WHERE id_instru = :id';
         $pdo = connexion();
         $query = $pdo->prepare($sql);

@@ -1,11 +1,11 @@
 {% extends "base.twig" %}
-
+{# PAGE POUR SE CREER UN COMPTE #}
 
 {% block main %}
 
-<div class="row min-vh-100">
-    <div class="col container p-5 w-50 d-flex flex-column justify-content-center">
-        <h1 class="text-center pb-2">Vous être un visiteur ?</h1>
+<div class="row row-cols-1 row-cols-lg-2 min-vh-100">
+    <div class="col container p-5  d-flex flex-column justify-content-center">
+        <h1 class="text-center pb-2 font_gluten">Vous être un visiteur ?</h1>
 
         {% if erreur_user_mail %}
             <p class="alert alert-danger text-center">{{ erreur_user_mail }}</p>
@@ -59,8 +59,8 @@
         </section>
     </div>
 
-    <div class="col container p-5 w-50 bg-secondary d-flex flex-column justify-content-center">
-        <h1 class="text-center text-bg-secondary pb-2">Vous êtes musicien professionnel ?</h1>
+    <div class="col container p-5  bg-secondary d-flex flex-column justify-content-center">
+        <h1 class="text-center text-bg-secondary pb-2 font_gluten">Vous êtes musicien professionnel ?</h1>
 
         {% if erreur_musicien_mail %}
             <p class="alert alert-danger text-center">{{ erreur_musicien_mail }}</p>

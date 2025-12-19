@@ -1,4 +1,5 @@
 <?php
+//Classe User avec toutes les fonctions liées aux utilisateurs
 
 class User {
     public $id_user;
@@ -133,20 +134,17 @@ class User {
 		$this->id_user = $pdo->lastInsertId();
 	}
 
-    function checkMail() {
+    function checkMail() { //pour voir si un mmail existe déja dans la base de donnée lors de la création de compte
     	  $sql = 'select * from user where mail = :mail';
         $pdo = connexion();
         $query = $pdo->prepare($sql);
         $query->bindValue(':mail', $this->mail, PDO::PARAM_STR);
         $query->execute();
-        // récupère la ligne sous forme d'objet et le renvoie
-        // si le résultat contient une ligne alors l'email existe
-        // sinon le résultat est vide et l'email n'existe pas
         $objet = $query->fetchObject('User');
         return $objet;
     }
 
-    function checkUser()
+    function checkUser() //pour voir si le compte existe bien lors de la connexion à un compte
 	{
 		$sql = 'select * from user where mail = :mail and mot_de_passe = :mot_de_passe';
 		$pdo = connexion();
@@ -154,15 +152,11 @@ class User {
 		$query->bindValue(':mail', $this->mail, PDO::PARAM_STR);
 		$query->bindValue(':mot_de_passe', $this->mot_de_passe, PDO::PARAM_STR);
 		$query->execute();
-
-		// récupère la ligne sous forme d'objet et le renvoie
-		// si le résultat contient une ligne alors l'utilisateur est trouvé
-		// sinon le résultat est vide et l'utilisateur n'existe pas
 		$objet = $query->fetchObject('User');
 		return $objet;
 	}
 
-    function update_role($id) {
+    function update_role($id) { //pour que l'admin change les rôles des utilisateurs
         $sql = 'UPDATE user SET role = :role WHERE id_user = :id';
         $pdo = connexion();
         $query = $pdo->prepare($sql);
@@ -172,7 +166,7 @@ class User {
         return [];
     }
 
-    function update_profil($id) {
+    function update_profil($id) { //pour qu'un utilisateur puisse changer ses informations personnelles dans le profil
         $sql = 'UPDATE user SET mail = :mail, nom = :nom, prenom = :prenom, pseudo = :pseudo, tel = :tel, mot_de_passe = :mot_de_passe WHERE id_user = :id';
 
         $pdo = connexion();
@@ -188,7 +182,7 @@ class User {
         return [];
     }
 
-    static function nombre_user() {
+    static function nombre_user() { //compte le nombres d'utilisateurs du site pour le dashboard
         $sql = 'SELECT COUNT(*) FROM user';
         $pdo = connexion();
         $query = $pdo->prepare($sql);

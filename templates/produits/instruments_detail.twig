@@ -1,8 +1,9 @@
 {% extends "base.twig" %}
+{# PAGE DETAIL D'UN INSTRUMENT #}
 
 {% block main %}
 
-    <section class="bg-light py-3">
+    <section class="py-3">
         <div class="container">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0">
@@ -15,12 +16,13 @@
     </section>
 
     {% if erreur_droit_instru %}
+    {# erreur qui dit que seule la personne ayant créé l'annonce peut la modifier/supprimer #}
     <p class="text-danger fs-4 text-center pt-2">{{ erreur_droit_instru }}</p>
     {% endif %}
 
     <section class="container my-5">
         <div class="row">
-            <div class="col-8">
+            <div class="col-12 col-lg-8">
                 <div class="p-4">
                     <h1 class="font_gluten fs-1 text-primary mb-4">{{ instruments.nom_instru }}</h1>
                     <div class="mb-4">
@@ -40,7 +42,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-4">
+            <div class="col-12 col-lg-4">
                 <div class="card border-1 border-success shadow">
                     <div class="card-body p-4">
                         <div class="text-center mb-4">
@@ -54,14 +56,14 @@
                 </div>
 
                 {% if session.id_user == instruments.id_user or session.role == 'administrateur' %}
-                <div class="mt-3">
-                    <div class="card-body p-3">
-                        <div class="d-grid gap-2">
-                            <a href="index.php?page=instruments&action=edit&id={{instruments.id_instru}}" class="btn btn-outline-secondary btn-sm"><i class="bi bi-pencil-fill"></i> Modifier</a>
-                            <a href="index.php?page=instruments&action=delete&id={{instruments.id_instru}}" class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i> Supprimer</a>
+                    <div class="mt-3">
+                        <div class="card-body p-3">
+                            <div class="d-grid gap-2">
+                                <a href="index.php?page=instruments&action=edit&id={{instruments.id_instru}}" class="btn    btn-outline-secondary btn-sm"><i class="bi bi-pencil-fill"></i> Modifier</a>
+                                <a href="index.php?page=instruments&action=delete&id={{instruments.id_instru}}" class="btn  btn-outline-danger btn-sm"><i class="bi bi-trash"></i> Supprimer</a>
+                            </div>
                         </div>
                     </div>
-                </div>
                 {% endif %}
             </div>
         </div>

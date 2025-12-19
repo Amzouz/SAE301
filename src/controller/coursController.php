@@ -1,6 +1,7 @@
 <?php
-include(ROOT_PATH . '/src/models/cours.php');
+//Ce controller gère les cours, créations de cours, modification,  suppression etc
 
+include(ROOT_PATH . '/src/models/cours.php');
 
 switch ($action) {
 
@@ -18,7 +19,7 @@ switch ($action) {
         }
         break;
 
-    case 'check_compte' :
+    case 'check_compte' : //vérifie si quelqu'un est connecté pour qu'il puisse s'inscrire à un cours
         if (!$_SESSION) {
             $modele = 'authentification/connexion.twig';
             $data = ['erreur_cours' => 'Vous devez être connecté pour vous inscrire à un cours'];
@@ -40,6 +41,7 @@ switch ($action) {
         if (empty($erreurs)) {
             $cours->create();
             header('Location: index.php?page=cours&action=read&id='.$cours->id_cours);
+            exit;
         } else {
             $modele = 'cours/cours_form.twig';
             $data = [
@@ -49,11 +51,10 @@ switch ($action) {
         }
         break;
 
-
     case 'edit' :
-        requireRole('musicien');
+        requireRole('musicien');   //Fonction qui fait que seul un musicien peut modifier un cours (cf fonctionsAcces.php)
         $cours = Cours::readOne($id);
-        if (!checkOwner($cours->id_user)) {
+        if (!checkOwner($cours->id_user)) {   //Fonction qui fait que seul le créateur de l'annonce peut la modifier (cf fonctionsAcces.php)
             $modele = 'cours/cours_detail.twig';
             $data = [
                 'erreur_droit' => 'Accès refusé, vous n\'avez pas les droits pour modifier ce cours.',
@@ -71,7 +72,6 @@ switch ($action) {
         $cours = new Cours();
         $id_user = $_SESSION['id_user'];
         $erreurs = $cours->chargePOST($id_user);
-
         if (empty($erreurs)) {
             $cours->update($id);
             header('Location: index.php?page=cours&action=read&id='.$cours->id_cours);
@@ -97,6 +97,7 @@ switch ($action) {
         } else {
         Cours::delete($id);
 		header('Location: index.php?page=cours&action=read');
+        exit;
         }
         break;
 

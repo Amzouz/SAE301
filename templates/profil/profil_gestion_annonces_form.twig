@@ -1,8 +1,9 @@
 {% extends "base.twig" %}
+{# PAGE PERMETTANT AU RESPONSABLE ANNONCE DE MODIFIER LA VISIBILITE D'UNE ANNONCE (changement client du 18/12) #}
 
 {% block main %}
 
-    <form class="w-75 mx-auto" action="index.php?page=profil&action=visible_update&id={{ instruments.id_instru }}" method="post">
+    <form class="my-5 w-75 mx-auto" action="index.php?page=profil&action=visible_update&id={{ instruments.id_instru }}" method="post">
 
         {% if instruments.id_instru is defined %}
             <input type="hidden" name="id_instru" value="{{ instruments.id_instru }}">

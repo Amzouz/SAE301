@@ -1,5 +1,5 @@
 <?php
-
+//Controller qui gère les authentification, inscriptions, et connexions au site
 
 switch ($action) {
     case 'connexion':
@@ -54,6 +54,7 @@ switch ($action) {
     case 'deconnexion':
         session_unset(); //vérifier si c'est comme ça
 		header('Location: index.php?page=authentification&action=connexion');
+        exit;
         break;
 
     case 'inscription' :

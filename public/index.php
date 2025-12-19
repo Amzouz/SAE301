@@ -5,12 +5,12 @@ session_start();
 // Définir la racine du projet
 define('ROOT_PATH', __DIR__ . '/..');
 //DIR = racine du projet
-//le root_path ça veut dire qu'on part toujours de la racine
+//le root_path ça veut dire qu'on part toujours de la racine = plus simple pour les chemins apres
 
 include(ROOT_PATH . '/src/database/connexion.php');
 include(ROOT_PATH . '/include/twig.php');
 include(ROOT_PATH . '/src/models/user.php');
-include(ROOT_PATH . '/src/auth/fonctionsAcces.php');
+include(ROOT_PATH . '/src/auth/fonctionsAcces.php'); //fonctions pour permettre l'accès à certains rôles et pas d'autres
 
 $twig = init_twig();
 
@@ -18,7 +18,7 @@ $page = $_GET['page'] ?? "";
 $action = $_GET['action'] ?? "read";
 $id = $_GET['id'] ?? 0;
 
-// Routeur - Dirige vers le bon contrôleur
+// Routeur de l'index - Dirige vers le bon contrôleur
 switch ($page) {
     case 'accueil':
         $modele = 'accueil.twig';

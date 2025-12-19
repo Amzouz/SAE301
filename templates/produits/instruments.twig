@@ -1,9 +1,11 @@
 {% extends "base.twig" %}
+{# PAGE AVEC TOUS LES INSTRUMENTS #}
 
 {% block main %}
 
     <section class="container d-flex justify-content-end pt-4">
     {% if session.role == 'visiteur' or session.role == 'musicien' or session.role == 'administrateur' %}
+    {# seule un visiteur, musicien ou admin peut vendre un instrument #}
         <a href="index.php?page=instruments&action=nouveau" class="p-2 border bg-secondary text-bg-secondary rounded-3 text-decoration-none">Créer une annonce d'instrument</a>
     {% endif %}
     </section>
@@ -11,9 +13,10 @@
     <section class="container mx-auto py-5">
     <h1 class="font_gluten text-center mb-5">Les instruments en vente</h1>
 
-    <div class="row row-cols-4 g-4">
+    <div class="row row-cols-1 row-cols-lg-4 g-4">
         {% for instrument in instruments %}
         {% if instrument.visible_instru == 1 %}
+        {# permet d'afficher un instrument si le responsable_annonces l'a permis (changement client du 18/12) #}
             <div class="col">
                 <div class="card border border-dark shadow h-100">
                     <div class="bg-secondary p-4"></div>

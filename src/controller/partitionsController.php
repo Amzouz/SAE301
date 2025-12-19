@@ -1,4 +1,6 @@
 <?php
+//Ce controller gère les annonces de partitions
+
 include(ROOT_PATH . '/src/models/partitions.php');
 
 
@@ -8,7 +10,7 @@ switch ($action) {
         if ($id > 0) {
             $modele = 'produits/partitions_detail.twig';
             $data = [
-                'partitions' => Arrangements::readOne($id),
+                'partitions' => Arrangements::readOne($id), //Comme "partition" c'est une fonction sql, j'ai appelé la table Arrangements
             ];
         } else {
             $modele = 'produits/partitions.twig';
@@ -40,6 +42,7 @@ switch ($action) {
         if (empty($erreurs)) {
             $partitions->create();
             header('Location: index.php?page=partitions&action=read&id='.$partitions->id_partitions);
+            exit;
         } else {
             $modele = 'produits/partitions_form.twig';
             $data = [
@@ -52,7 +55,7 @@ switch ($action) {
 
     case 'edit' :
         $partitions = Arrangements::readOne($id);
-        if (!checkOwner($partitions->id_user)) {
+        if (!checkOwner($partitions->id_user)) { //seul celui qui a posté l'annonce peut la modifier ou supprimer
             $modele = 'produits/partitions_detail.twig';
             $data = [
                 'erreur_droit_partition' => 'Accès refusé, vous n\'avez pas les droits pour modifier cette partition.',
@@ -96,6 +99,7 @@ switch ($action) {
         } else {
             Arrangements::delete($id);
             header('Location: index.php?page=partitions&action=read');
+            exit;
         }
         break;
 
